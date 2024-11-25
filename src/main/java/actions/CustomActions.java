@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+// Ensure SLF4J imports are included
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,15 +22,26 @@ public class CustomActions {
         this.driver = driver;
     }
 
+    public String getCurrentUrl(String pageName) {
+        try {
+            String currentUrl = driver.getCurrentUrl();
+            logger.info("Retrieved current URL '{}' for page '{}'.", currentUrl, pageName);
+            return currentUrl;
+        } catch (Exception e) {
+            logger.error("Failed to get current URL for page '{}': {}", pageName, e.getMessage());
+            return "";
+        }
+    }
+
     public boolean explicitWaitForVisibility(WebElement element, String elementName) {
         try {
             int timeOut = 10;
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.visibilityOf(element));
-            logger.info("Explicit wait successful: {} is visible.", elementName);
+            logger.info("'{}' is visible after explicit wait.", elementName);
             return true;
         } catch (Exception e) {
-            logger.error("Explicit wait failed: {} was not visible within 10 seconds. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to wait for visibility of '{}': {}", elementName, e.getMessage());
             return false;
         }
     }
@@ -38,35 +50,34 @@ public class CustomActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             element.clear();
-            logger.info("Successfully cleared the '{}'.", elementName);
+            logger.info("Cleared field '{}'.", elementName);
         } catch (Exception e) {
-            logger.error("Unable to clear the '{}'. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to clear field '{}': {}", elementName, e.getMessage());
         }
     }
-
 
     public void click(WebElement element, String elementName) {
         try {
             this.explicitWaitForVisibility(element, elementName);
             actions.moveToElement(element).click().perform();
-            logger.info("Successfully clicked on the {}.", elementName);
+            logger.info("Clicked on '{}'.", elementName);
         } catch (Exception e) {
-            logger.error("Unable to click on the {}. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to click on '{}': {}", elementName, e.getMessage());
         }
     }
 
     public boolean explicitWaitForVisibilityOfList(List<WebElement> elementsList, String elementName) {
         try {
             for (int i = 0; i < elementsList.size(); i++) {
-                WebElement product = elementsList.get(i);
-                if (!this.explicitWaitForVisibility(product, elementName)) {
-                    throw new AssertionError("Product at index " + i + " with text '" + product.getText() + "' is not visible.");
+                WebElement element = elementsList.get(i);
+                if (!this.explicitWaitForVisibility(element, elementName)) {
+                    throw new AssertionError("Element at index " + i + " with text '" + element.getText() + "' is not visible.");
                 }
             }
-            logger.info("All elements in the {} are visible.", elementName);
+            logger.info("All elements in '{}' are visible.", elementName);
             return true;
         } catch (Exception e) {
-            logger.error("Explicit wait failed for elements in: {}. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to wait for visibility of elements in '{}': {}", elementName, e.getMessage());
             return false;
         }
     }
@@ -76,9 +87,9 @@ public class CustomActions {
             this.explicitWaitForVisibility(element, elementName);
             element.clear();
             element.sendKeys(text);
-            logger.info("Successfully entered '{}' in {}.", text, elementName);
+            logger.info("Entered '{}' into '{}'.", text, elementName);
         } catch (Exception e) {
-            logger.error("Unable to enter text in the {}. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to enter text into '{}': {}", elementName, e.getMessage());
         }
     }
 
@@ -86,10 +97,10 @@ public class CustomActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             String text = element.getText().trim();
-            logger.info("Successfully retrieved '{}' from {}", text, elementName);
+            logger.info("Retrieved text '{}' from '{}'.", text, elementName);
             return text;
         } catch (Exception e) {
-            logger.error("Unable to retrieve text from {} Error: {}", elementName, e.getMessage());
+            logger.error("Failed to retrieve text from '{}': {}", elementName, e.getMessage());
             return "";
         }
     }
@@ -98,19 +109,19 @@ public class CustomActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             actions.moveToElement(element).perform();
-            logger.info("Successfully moved to {}.", elementName);
+            logger.info("Moved to '{}'.", elementName);
         } catch (Exception e) {
-            logger.error("Unable to move to {}. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to move to '{}': {}", elementName, e.getMessage());
         }
     }
 
-    public boolean openUrl(WebDriver driver, String url) {
+    public boolean openUrl(String url) {
         try {
             driver.navigate().to(url);
-            logger.info("Successfully opened URL: {}.", url);
+            logger.info("Opened URL '{}'.", url);
             return true;
         } catch (Exception e) {
-            logger.error("Failed to open URL: {}. Error: {}", url, e.getMessage());
+            logger.error("Failed to open URL '{}': {}", url, e.getMessage());
             return false;
         }
     }
@@ -119,10 +130,10 @@ public class CustomActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             String value = element.getAttribute("value");
-            logger.info("Successfully retrieved '{}' from {}.", value, elementName);
+            logger.info("Retrieved input value '{}' from '{}'.", value, elementName);
             return value != null ? value : "";
         } catch (Exception e) {
-            logger.error("Unable to retrieve text from {}. Error: {}", elementName, e.getMessage());
+            logger.error("Failed to retrieve input value from '{}': {}", elementName, e.getMessage());
             return "";
         }
     }
