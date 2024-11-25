@@ -1,7 +1,7 @@
 
 ## UI Tests
 
- **Testing framework + automated tests for SwagLabs.**
+ **SwagLabs automated tests + testing framework.**
 
 ---
 
@@ -20,7 +20,7 @@
    │     ├─ listener
    │     │  └─ TestListener.java
    │     └─ ui
-   │        ├─ component
+   │        ├─ components
    │        │  ├─ footer
    │        │  │  ├─ Footer.java
    │        │  │  └─ FooterElements.java
@@ -28,7 +28,7 @@
    │        │  │  ├─ Header.java
    │        │  │  └─ HeaderElements.java
    │        │  └─ BaseComponent.java
-   │        └─ page
+   │        └─ pages
    │           ├─ cartPage
    │           │  ├─ CartPage.java
    │           │  └─ CartPageElements.java
@@ -47,26 +47,30 @@
    │           ├─ itemPage
    │           │  ├─ ItemPage.java
    │           │  └─ ItemPageElements.java
-   │           └─ loginPage
-   │              ├─ LoginPage.java
-   │              ├─ LoginPageElements.java
-   │              └─ BasePage.java
+   │           ├─ loginPage
+   │           │  ├─ LoginPage.java
+   │           │  └─ LoginPageElements.java
+   │           └─ BasePage.java
    └─ test
       ├─ java
       │  └─ swaglabs
-      │     ├─ facade
+      │     ├─ constants
+      │     │  ├─ Credentials.java
+      │     │  ├─ ErrorConstants.java
+      │     │  ├─ InputConstants.java
+      │     │  └─ RedirectLinks.java
+      │     ├─ dataproviders
+      │     │  └─ LoginTestDataProvider.java
+      │     ├─ facades
       │     │  └─ LoginFacade.java
-      │     ├─ test
+      │     ├─ tests
       │     │  └─ page
       │     │     ├─ BaseTest.java
       │     │     └─ LoginTest.java
       │     ├─ utils
-      │     │  ├─ common
-      │     │  │  ├─ RandomStringGenerator.java
-      │     │  │  └─ RedirectLinks.java
-      │     │  └─ test
-      │     │     ├─ CustomAssert.java
-      │     │     └─ CustomSoftAssert.java
+      │     │  ├─ CustomAssert.java
+      │     │  ├─ CustomSoftAssert.java
+      │     │  └─ RandomStringGenerator.java
       └─ resources
          ├─ config.properties
          └─ logback.xml
