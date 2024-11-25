@@ -1,7 +1,7 @@
 
 ## UI Testing Framework
 
- **This project is a testing framework designed for SwagLabs. It serves as the foundation for creating and managing automated UI tests.**
+ **Testing framework + automated tests for SwagLabs.**
 
 ---
 
