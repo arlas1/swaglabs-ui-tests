@@ -1,5 +1,5 @@
 
-## UI Testing Framework
+## UI Tests
 
  **Testing framework + automated tests for SwagLabs.**
 
