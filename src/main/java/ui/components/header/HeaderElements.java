@@ -28,7 +28,7 @@ public class HeaderElements {
     @FindBy(id = "about_sidebar_link")
     protected WebElement aboutPageButton;
 
-    @FindBy(id = "user-logout_sidebar_link")
+    @FindBy(id = "logout_sidebar_link")
     protected WebElement logoutButton;
 
     @FindBy(id = "reset_sidebar_link")

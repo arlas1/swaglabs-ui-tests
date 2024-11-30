@@ -16,63 +16,63 @@ public class CartPage extends BasePage {
     }
 
     public InventoryPage continueShopping() {
-        customActions.click(elements.continueShoppingButton, "continue shopping button");
+        click(elements.continueShoppingButton, "continue shopping button");
         return new InventoryPage(driver);
     }
 
     public CheckoutStepOnePage goToCheckout() {
-        customActions.click(elements.checkoutButton, "checkout button");
+        click(elements.checkoutButton, "checkout button");
         return new CheckoutStepOnePage(driver);
     }
 
     public CartPage removeItem(WebElement removeButton) {
-        customActions.click(removeButton, "remove item button");
+        click(removeButton, "remove item button");
         return this;
     }
 
     public InventoryItemPage openItem(WebElement itemTitle) {
-        customActions.click(itemTitle, "item title");
+        click(itemTitle, "item title");
         return new InventoryItemPage(driver);
     }
 
     public boolean isYourCartTextVisible() {
-        return customActions.explicitWaitForVisibility(elements.yourCartText, "your cart text");
+        return explicitWaitForVisibility(elements.yourCartText, "your cart text");
     }
 
     public boolean isQtyTextVisible() {
-        return customActions.explicitWaitForVisibility(elements.qtyText, "qty text");
+        return explicitWaitForVisibility(elements.qtyText, "qty text");
     }
 
     public boolean isDescriptionTextVisible() {
-        return customActions.explicitWaitForVisibility(elements.descriptionText, "description text");
+        return explicitWaitForVisibility(elements.descriptionText, "description text");
     }
 
     public boolean isCartItemsListVisible() {
-        return customActions.explicitWaitForVisibilityOfList(elements.cartItemsList, "cart items list");
+        return explicitWaitForVisibilityOfList(elements.cartItemsList, "cart items list");
     }
 
     public boolean isItemQuantityVisible(WebElement cartItem) {
         WebElement itemQuantity = cartItem.findElement(By.cssSelector("div[data-test='item-quantity']"));
-        return customActions.explicitWaitForVisibility(itemQuantity, "item quantity");
+        return explicitWaitForVisibility(itemQuantity, "item quantity");
     }
 
     public boolean isItemTitleVisible(WebElement cartItem) {
         WebElement itemTitle = cartItem.findElement(By.cssSelector("div[data-test='inventory-item-name']"));
-        return customActions.explicitWaitForVisibility(itemTitle, "item title");
+        return explicitWaitForVisibility(itemTitle, "item title");
     }
 
     public boolean isItemDescriptionVisible(WebElement cartItem) {
         WebElement itemDescription = cartItem.findElement(By.cssSelector("div[data-test='inventory-item-desc']"));
-        return customActions.explicitWaitForVisibility(itemDescription, "item description");
+        return explicitWaitForVisibility(itemDescription, "item description");
     }
 
     public boolean isItemPriceVisible(WebElement cartItem) {
         WebElement itemPrice = cartItem.findElement(By.cssSelector("div[data-test='inventory-item-price']"));
-        return customActions.explicitWaitForVisibility(itemPrice, "item price");
+        return explicitWaitForVisibility(itemPrice, "item price");
     }
 
     public boolean isItemRemoveButtonVisible(WebElement cartItem) {
         WebElement removeButton = cartItem.findElement(By.cssSelector("button[data-test^='remove-']"));
-        return customActions.explicitWaitForVisibility(removeButton, "item remove button");
+        return explicitWaitForVisibility(removeButton, "item remove button");
     }
 }

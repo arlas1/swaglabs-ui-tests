@@ -1,6 +1,5 @@
 package ui.components.header;
 
-import actions.CustomActions;
 import org.openqa.selenium.WebDriver;
 import ui.components.BaseComponent;
 import ui.pages.cartPage.CartPage;
@@ -9,67 +8,72 @@ import ui.pages.loginPage.LoginPage;
 public class Header extends BaseComponent {
     private final HeaderElements elements;
 
-    public Header(WebDriver driver, CustomActions customActions) {
-        super(driver, customActions);
+    public Header(WebDriver driver) {
+        super(driver);
         this.elements = new HeaderElements(driver);
     }
 
     public int getAmountOfItemsOnCart() {
-        String amount = customActions.getText(elements.cartBadge, "cart badge");
+        String amount = getText(elements.cartBadge, "cart badge");
         return Integer.parseInt(amount);
     }
 
     public CartPage openCart() {
-        customActions.click(elements.cartButton, "cart button");
+        click(elements.cartButton, "cart button");
         return new CartPage(driver);
     }
 
     public Header openMenu() {
-        customActions.click(elements.menuButton, "menu button");
+        click(elements.menuButton, "menu button");
         return this;
     }
 
     public Header openAllItems() {
-        customActions.click(elements.allItemsButton, "all items button");
+        click(elements.allItemsButton, "all items button");
         return this;
     }
 
-    public void openAboutPage() {
-        customActions.click(elements.aboutPageButton, "about page button");
+    public Header openAboutPage() {
+        click(elements.aboutPageButton, "about page button");
+        return this;
     }
 
     public LoginPage logout() {
-        customActions.click(elements.logoutButton, "logout button");
+        click(elements.logoutButton, "logout button");
         return new LoginPage(driver);
     }
 
     public Header resetAppState() {
-        customActions.click(elements.resetAppStateButton, "reset app state button");
+        click(elements.resetAppStateButton, "reset app state button");
         return this;
     }
 
     public Header closeMenu() {
-        customActions.click(elements.menuCloseButton, "menu close button");
+        click(elements.menuCloseButton, "menu close button");
         return this;
     }
 
-    public Header hoverOverAllItemsButton() {
-        customActions.moveToElement(elements.allItemsButton, "all items button");
-        return this;
+    public boolean isAllItemsTextColorChangedOnHover() {
+        return isTextColorChangedOnHover(elements.allItemsButton, "all items button");
     }
 
-    public Header hoverOverAboutPageButton() {
-        customActions.moveToElement(elements.aboutPageButton, "about page button");
-        return this;
+    public boolean isAboutTextColorChangedOnHover() {
+        return isTextColorChangedOnHover(elements.aboutPageButton, "about page button");
     }
 
-    public Header hoverOverLogoutButton() {
-        customActions.moveToElement(elements.logoutButton, "logout button");
-        return this;
+    public boolean isLogoutTextColorChangedOnHover() {
+        return isTextColorChangedOnHover(elements.logoutButton, "logout button");
     }
 
-    public Header hoverOverResetAppStateButton() {
-        customActions.moveToElement(elements.resetAppStateButton, "reset app state button");
-        return this;
+    public boolean isResetAppStateTextColorChangedOnHover() {
+        return isTextColorChangedOnHover(elements.resetAppStateButton, "reset app state button");
+    }
+
+    public boolean isWebsiteTitleVisible() {
+       return explicitWaitForVisibility(elements.websiteTitle, "website title");
+    }
+
+    public boolean isMenuVisible() {
+        return explicitWaitForVisibility(elements.menu, "manu ");
     }
 }

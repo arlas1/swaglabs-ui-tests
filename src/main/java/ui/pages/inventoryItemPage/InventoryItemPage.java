@@ -12,34 +12,34 @@ public class InventoryItemPage extends BasePage {
     }
 
     public InventoryPage goBackToProducts() {
-        customActions.click(elements.backToProductsButton, "back to products button");
+        click(elements.backToProductsButton, "back to products button");
         return new InventoryPage(driver);
     }
 
     public InventoryItemPage addItemToCart() {
-        customActions.click(elements.itemAddToCartButton, "add to cart button");
+        click(elements.itemAddToCartButton, "add to cart button");
         return this;
     }
 
     public InventoryItemPage removeItemFromCart() {
-        customActions.click(elements.itemRemoveButton, "remove from cart button");
+        click(elements.itemRemoveButton, "remove from cart button");
         return this;
     }
 
-    public InventoryItemPage hoverOverItemTitle() {
-        customActions.moveToElement(elements.itemTitle, "item title");
+    public InventoryItemPage isItemTitleTextColorChangedOnHover() {
+        isTextColorChangedOnHover(elements.itemTitle, "item title");
         return this;
     }
 
     public boolean isItemImageVisible() {
-        return customActions.explicitWaitForVisibility(elements.itemImage, "item image");
+        return explicitWaitForVisibility(elements.itemImage, "item image");
     }
 
     public boolean isItemDescriptionVisible() {
-        return customActions.explicitWaitForVisibility(elements.itemDescription, "item description");
+        return explicitWaitForVisibility(elements.itemDescription, "item description");
     }
 
     public boolean isItemPriceVisible() {
-        return customActions.explicitWaitForVisibility(elements.itemPrice, "item price");
+        return explicitWaitForVisibility(elements.itemPrice, "item price");
     }
 }

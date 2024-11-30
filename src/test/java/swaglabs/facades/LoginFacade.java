@@ -2,21 +2,22 @@ package swaglabs.facades;
 
 import config.*;
 import swaglabs.constants.Credentials;
-import swaglabs.constants.RedirectLinks;
 import org.openqa.selenium.WebDriver;
+import swaglabs.constants.PageUrlConstants;
 import swaglabs.utils.CustomSoftAssert;
 import ui.pages.loginPage.LoginPage;
 import swaglabs.constants.ErrorConstants;
 import swaglabs.constants.InputConstants.InputLength;
 import swaglabs.constants.InputConstants.InputType;
 
+import static swaglabs.constants.PageUrlConstants.PageUrl.INVENTORY_PAGE_URL;
 import static swaglabs.utils.CustomAssert.assertEquals;
 import static swaglabs.utils.CustomAssert.assertTrue;
 import static swaglabs.utils.RandomStringGenerator.generateRandomInput;
 
 public class LoginFacade {
-    private final CustomSoftAssert soft = new CustomSoftAssert();
     private final LoginPage loginPage;
+    private final CustomSoftAssert soft;
 
     private String expectedUsername;
     private String actualUsername;
@@ -29,6 +30,8 @@ public class LoginFacade {
 
     public LoginFacade(WebDriver driver) {
         this.loginPage = new LoginPage(driver);
+        this.soft = new CustomSoftAssert();
+
     }
 
     public LoginFacade enterRandomUsername(InputType inputType, InputLength inputLength) {
@@ -65,7 +68,7 @@ public class LoginFacade {
 
     public void verifyUsernameFieldStoresInput() {
         assertEquals(this.expectedUsername, this.actualUsername,
-                "Verifying that the username field stores the input."
+                "Verifying that username field stores the input."
         );
         loginPage.cleanUsernameField();
 
@@ -75,7 +78,7 @@ public class LoginFacade {
 
     public void verifyPasswordFieldStoresInput() {
         assertEquals(this.expectedPassword, this.actualPassword,
-                "Verifying that the password field stores the input."
+                "Verifying that password field stores the input."
         );
         loginPage.cleanPasswordField();
 
@@ -85,7 +88,7 @@ public class LoginFacade {
 
     public void verifyCredentialsAreVisible() {
         assertTrue(loginPage.areCredentialsVisible(),
-                "Verifying that the default credentials are visible on the login page."
+                "Verifying that default credentials are visible."
         );
     }
 
@@ -99,16 +102,18 @@ public class LoginFacade {
         this.actualErrorMessage = errorType.getMessage();
 
         soft.assertTrue(loginPage.isUsernameErrorIconVisible(),
-                "Verifying that the username error icon is visible."
+                "Verifying that username error icon is visible."
         );
         soft.assertTrue(loginPage.isPasswordErrorIconVisible(),
-                "Verifying that the password error icon is visible."
+                "Verifying that password error icon is visible."
         );
-        assertTrue(loginPage.isErrorAlertVisible(),
-                "Verifying that the error alert is visible."
+        soft.assertTrue(loginPage.isErrorAlertVisible(),
+                "Verifying that error alert is visible."
         );
+        soft.assertAll();
+
         assertEquals(this.expectedErrorMessage, this.actualErrorMessage,
-                "Verifying that the displayed error message matches the expected error message."
+                "Verifying that displayed error message matches the expected error message."
         );
 
         loginPage.closeErrorAlert();
@@ -116,17 +121,17 @@ public class LoginFacade {
         this.actualErrorMessage = null;
     }
 
-    public void verifyRedirectToInventoryPage() {
-        String currentUrl = loginPage.getCurrentUrl("inventory page");
-        assertEquals(currentUrl, RedirectLinks.INVENTORY_PAGE_URL,
-                "Verifying that the user is redirected to the inventory page after login."
+    public void verifyRedirectTo(PageUrlConstants.PageUrl redirectedToUrl) {
+        String currentUrl = loginPage.getCurrentUrl();
+        assertEquals(currentUrl, redirectedToUrl.getUrl(),
+                "Verifying that user is redirected to the inventory page."
         );
         loginPage.openUrl(Config.baseUrl);
     }
 
     public void verifyWebsiteTitleIsVisible() {
         assertTrue(loginPage.isWebsiteTitleVisible(),
-                "Verifying that the website title is visible on the login page."
+                "Verifying that website title is visible."
         );
     }
 }

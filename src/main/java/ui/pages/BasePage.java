@@ -1,24 +1,19 @@
 package ui.pages;
 
-import actions.CustomActions;
+import actions.PageActions;
 import org.openqa.selenium.WebDriver;
 import ui.components.footer.Footer;
 import ui.components.header.Header;
 
-public abstract class BasePage {
+public class BasePage extends PageActions{
+    protected WebDriver driver;
     public Header header;
     public Footer footer;
-    protected WebDriver driver;
-    protected CustomActions customActions;
 
     public BasePage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
-        this.customActions = new CustomActions(driver);
-        this.header = new Header(driver, customActions);
-        this.footer = new Footer(driver, customActions);
-    }
-
-    public String getCurrentUrl(String message) {
-        return customActions.getCurrentUrl(message);
+        this.header = new Header(driver);
+        this.footer = new Footer(driver);
     }
 }

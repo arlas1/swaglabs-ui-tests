@@ -1,5 +1,6 @@
 package actions;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,30 +12,69 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.List;
 
-public class CustomActions {
-    private static final Logger logger = LoggerFactory.getLogger(CustomActions.class);
+public class PageActions {
+    private static final Logger logger = LoggerFactory.getLogger(PageActions.class);
     private final Actions actions;
     private final WebDriver driver;
 
-    public CustomActions(WebDriver driver) {
+    public PageActions(WebDriver driver) {
         this.actions = new Actions(driver);
         this.driver = driver;
     }
 
-    public String getCurrentUrl(String pageName) {
+    public String getCurrentUrl() {
         try {
             String currentUrl = driver.getCurrentUrl();
-            logger.info("Retrieved current URL '{}' for page '{}'.", currentUrl, pageName);
+            String normalizedCurrentUrl = currentUrl.split("\\?")[0];
+            logger.info("Retrieved URL '{}' for current page.", normalizedCurrentUrl);
             return currentUrl;
         } catch (Exception e) {
-            logger.error("Failed to get current URL for page '{}': {}", pageName, e.getMessage());
+            logger.error("Failed to get URL for current page: {}", e.getMessage());
             return "";
         }
     }
 
+    public boolean openUrl(String url) {
+        try {
+            driver.navigate().to(url);
+            logger.info("Opened URL '{}'.", url);
+            return true;
+        } catch (Exception e) {
+            logger.error("Failed to open URL '{}': {}", url, e.getMessage());
+            return false;
+        }
+    }
+
+    public void switchToNewTab(String tabName) {
+        try {
+            String originalTab = driver.getWindowHandle();
+            for (String tabHandle : driver.getWindowHandles()) {
+                if (!tabHandle.equals(originalTab)) {
+                    driver.switchTo().window(tabHandle);
+                    logger.info("Switched to {} with URL '{}'.", tabName, driver.getCurrentUrl());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Switched to {} with URL '{}' : {}", tabName, driver.getCurrentUrl(), e.getMessage());
+        }
+    }
+
+    public void closeCurrentTabAndSwitchBack() {
+        try {
+            String originalTab = driver.getWindowHandles().iterator().next();
+            driver.close();
+            driver.switchTo().window(originalTab);
+            logger.info("Closed current tab and switched back to the original tab.");
+        } catch (Exception e) {
+            logger.error("Failed to close the current tab or switch back: {}", e.getMessage());
+        }
+    }
+
+
     public boolean explicitWaitForVisibility(WebElement element, String elementName) {
         try {
-            int timeOut = 10;
+            int timeOut = 3;
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.visibilityOf(element));
             logger.info("'{}' is visible after explicit wait.", elementName);
@@ -104,26 +144,28 @@ public class CustomActions {
         }
     }
 
-    public void moveToElement(WebElement element, String elementName) {
+    public boolean isTextColorChangedOnHover(WebElement element, String elementName) {
         try {
             this.explicitWaitForVisibility(element, elementName);
+            String initialColor = element.getCssValue("color");
             actions.moveToElement(element).perform();
-            logger.info("Moved to '{}'.", elementName);
+            logger.info("Hovered over '{}'.", elementName);
+            String hoverColor = element.getCssValue("color");
+            boolean isColorChanged = !initialColor.equals(hoverColor);
+            if (isColorChanged) {
+                logger.info("Text color of '{}' changed from '{}' to '{}'.", elementName, initialColor, hoverColor);
+            } else {
+                logger.warn("Text color of '{}' did not change on hover. Initial color: '{}', Hover color: '{}'.",
+                        elementName, initialColor, hoverColor);
+            }
+            return isColorChanged;
         } catch (Exception e) {
-            logger.error("Failed to move to '{}': {}", elementName, e.getMessage());
-        }
-    }
-
-    public boolean openUrl(String url) {
-        try {
-            driver.navigate().to(url);
-            logger.info("Opened URL '{}'.", url);
-            return true;
-        } catch (Exception e) {
-            logger.error("Failed to open URL '{}': {}", url, e.getMessage());
+            logger.error("Failed to verify text color change on hover for '{}': {}", elementName, e.getMessage());
             return false;
         }
     }
+
+
 
     public String getInputValue(WebElement element, String elementName) {
         try {
@@ -136,4 +178,25 @@ public class CustomActions {
             return "";
         }
     }
+
+    public void scrollToElement(WebElement element, String elementName) {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollIntoView(true);", element);
+            logger.info("Scrolled to element '{}'.", elementName);
+        } catch (Exception e) {
+            logger.error("Failed to scroll to element '{}': {}", elementName, e.getMessage());
+        }
+    }
+
+
+//    public void moveToElement(WebElement element, String elementName) {
+//        try {
+//            this.explicitWaitForVisibility(element, elementName);
+//            actions.moveToElement(element).perform();
+//            logger.info("Moved to '{}'.", elementName);
+//        } catch (Exception e) {
+//            logger.error("Failed to move to '{}': {}", elementName, e.getMessage());
+//        }
+//    }
 }
