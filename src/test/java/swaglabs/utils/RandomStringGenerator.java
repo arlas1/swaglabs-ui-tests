@@ -1,7 +1,7 @@
 package swaglabs.utils;
 
-import swaglabs.constants.InputConstants.InputLength;
-import swaglabs.constants.InputConstants.InputType;
+import swaglabs.constants.InputDetails.InputLength;
+import swaglabs.constants.InputDetails.InputType;
 import java.security.SecureRandom;
 import java.util.Random;
 

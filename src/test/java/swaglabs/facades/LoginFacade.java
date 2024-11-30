@@ -1,18 +1,17 @@
 package swaglabs.facades;
 
 import config.*;
+import swaglabs.constants.ErrorType;
+import swaglabs.constants.PageUrl;
 import swaglabs.constants.Credentials;
 import org.openqa.selenium.WebDriver;
-import swaglabs.constants.PageUrlConstants;
 import swaglabs.utils.CustomSoftAssert;
 import ui.pages.loginPage.LoginPage;
-import swaglabs.constants.ErrorConstants;
-import swaglabs.constants.InputConstants.InputLength;
-import swaglabs.constants.InputConstants.InputType;
+import swaglabs.constants.InputDetails.InputLength;
+import swaglabs.constants.InputDetails.InputType;
 
-import static swaglabs.constants.PageUrlConstants.PageUrl.INVENTORY_PAGE_URL;
-import static swaglabs.utils.CustomAssert.assertEquals;
 import static swaglabs.utils.CustomAssert.assertTrue;
+import static swaglabs.utils.CustomAssert.assertEquals;
 import static swaglabs.utils.RandomStringGenerator.generateRandomInput;
 
 public class LoginFacade {
@@ -97,7 +96,7 @@ public class LoginFacade {
         return this;
     }
 
-    public void verifyErrorMessage(ErrorConstants.ErrorType errorType) {
+    public void verifyErrorMessage(ErrorType errorType) {
         this.expectedErrorMessage = loginPage.getErrorMessage();
         this.actualErrorMessage = errorType.getMessage();
 
@@ -121,7 +120,7 @@ public class LoginFacade {
         this.actualErrorMessage = null;
     }
 
-    public void verifyRedirectTo(PageUrlConstants.PageUrl redirectedToUrl) {
+    public void verifyRedirectTo(PageUrl redirectedToUrl) {
         String currentUrl = loginPage.getCurrentUrl();
         assertEquals(currentUrl, redirectedToUrl.getUrl(),
                 "Verifying that user is redirected to the inventory page."

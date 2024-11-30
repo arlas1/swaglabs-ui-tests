@@ -1,6 +1,6 @@
 package swaglabs.constants;
 
-public class InputConstants {
+public class InputDetails {
 
     public enum InputType {
         ALPHABET,

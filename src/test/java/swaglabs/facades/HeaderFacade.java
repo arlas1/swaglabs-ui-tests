@@ -1,11 +1,11 @@
 package swaglabs.facades;
 
 import org.openqa.selenium.WebDriver;
-import swaglabs.constants.PageUrlConstants;
+import swaglabs.constants.PageUrl;
 import swaglabs.utils.CustomSoftAssert;
 import ui.components.header.Header;
 
-import static swaglabs.constants.PageUrlConstants.PageUrl.INVENTORY_PAGE_URL;
+import static swaglabs.constants.PageUrl.*;
 import static swaglabs.utils.CustomAssert.*;
 
 public class HeaderFacade {
@@ -28,7 +28,7 @@ public class HeaderFacade {
         return this;
     }
 
-    public void verifyRedirectTo(PageUrlConstants.PageUrl redirectedToUrl) {
+    public void verifyRedirectTo(PageUrl redirectedToUrl) {
         String redirectPage = redirectedToUrl.getUrl();
         String currentUrl = header.getCurrentUrl();
         assertEquals(currentUrl, redirectPage,

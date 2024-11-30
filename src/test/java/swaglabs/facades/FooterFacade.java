@@ -1,9 +1,9 @@
 package swaglabs.facades;
 
 import org.openqa.selenium.WebDriver;
+import swaglabs.constants.PageUrl;
 import ui.components.footer.Footer;
 
-import static swaglabs.constants.PageUrlConstants.*;
 import static swaglabs.utils.CustomAssert.*;
 
 public class FooterFacade {

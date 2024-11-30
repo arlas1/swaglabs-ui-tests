@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import swaglabs.facades.HeaderFacade;
 
 import static swaglabs.constants.Credentials.Usernames;
-import static swaglabs.constants.PageUrlConstants.PageUrl.*;
+import static swaglabs.constants.PageUrl.*;
 
 @Listeners(TestListener.class)
 public class HeaderTest extends BaseTest  {

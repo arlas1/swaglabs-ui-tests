@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import swaglabs.constants.Credentials;
 import swaglabs.facades.FooterFacade;
 
-import static swaglabs.constants.PageUrlConstants.PageUrl.*;
+import static swaglabs.constants.PageUrl.*;
 
 @Listeners(TestListener.class)
 public class FooterTest extends BaseTest {

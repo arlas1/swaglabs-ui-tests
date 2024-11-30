@@ -1,7 +1,6 @@
 package swaglabs.constants;
 
 public class Credentials {
-
     public static final String PASSWORD = "secret_sauce";
 
     public static class Usernames {

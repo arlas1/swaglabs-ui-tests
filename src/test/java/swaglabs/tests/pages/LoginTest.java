@@ -1,15 +1,15 @@
 package swaglabs.tests.pages;
 
-import swaglabs.constants.InputConstants.InputLength;
-import swaglabs.constants.InputConstants.InputType;
+import swaglabs.constants.InputDetails.InputLength;
+import swaglabs.constants.InputDetails.InputType;
 import listener.TestListener;
 import org.testng.annotations.Test;
 import org.testng.annotations.Listeners;
 import swaglabs.dataproviders.LoginTestDataProvider;
 
+import static swaglabs.constants.ErrorType.*;
+import static swaglabs.constants.PageUrl.*;
 import static swaglabs.constants.Credentials.Usernames;
-import static swaglabs.constants.ErrorConstants.ErrorType.*;
-import static swaglabs.constants.PageUrlConstants.PageUrl.INVENTORY_PAGE_URL;
 
 @Listeners(TestListener.class)
 public class LoginTest extends BaseTest {

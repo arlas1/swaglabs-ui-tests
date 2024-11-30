@@ -26,8 +26,8 @@ public class PageActions {
         try {
             String currentUrl = driver.getCurrentUrl();
             String normalizedCurrentUrl = currentUrl.split("\\?")[0];
-            logger.info("Retrieved URL '{}' for current page.", normalizedCurrentUrl);
-            return currentUrl;
+            logger.info("Retrieved current page URL - '{}'.", normalizedCurrentUrl);
+            return normalizedCurrentUrl;
         } catch (Exception e) {
             logger.error("Failed to get URL for current page: {}", e.getMessage());
             return "";
@@ -51,12 +51,12 @@ public class PageActions {
             for (String tabHandle : driver.getWindowHandles()) {
                 if (!tabHandle.equals(originalTab)) {
                     driver.switchTo().window(tabHandle);
-                    logger.info("Switched to {} with URL '{}'.", tabName, driver.getCurrentUrl());
+                    logger.info("Switched to opened {} with URL '{}'.", tabName, driver.getCurrentUrl());
                     break;
                 }
             }
         } catch (Exception e) {
-            logger.error("Switched to {} with URL '{}' : {}", tabName, driver.getCurrentUrl(), e.getMessage());
+            logger.error("Unable to switch to {} with URL '{}' : {}", tabName, driver.getCurrentUrl(), e.getMessage());
         }
     }
 

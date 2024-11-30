@@ -1,7 +1,7 @@
 package swaglabs.dataproviders;
 
 import swaglabs.constants.Credentials;
-import swaglabs.constants.InputConstants.*;
+import swaglabs.constants.InputDetails.*;
 import org.testng.annotations.DataProvider;
 
 public class LoginTestDataProvider {
