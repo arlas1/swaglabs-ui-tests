@@ -55,6 +55,18 @@ public class PageActions {
         }
     }
 
+    public boolean goToPreviousPage() {
+        try {
+            driver.navigate().back();
+            logger.info("Navigated to the previous page.");
+            return true;
+        } catch (Exception e) {
+            logger.error("Failed to navigate to the previous page: {}", e.getMessage());
+            return false;
+        }
+    }
+
+
     public void switchToNewTab(String tabName) {
         try {
             String originalTab = driver.getWindowHandle();

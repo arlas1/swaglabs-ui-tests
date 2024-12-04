@@ -148,7 +148,7 @@ public class InventoryFacade {
     }
 
     public void verifyCartBadgeDisplays(int expectedAmount) {
-        int actualAmountOfItems = inventoryPage.getNumberOnCartBadge();
+        int actualAmountOfItems = inventoryPage.header.getNumberOnCartBadge();
         assertEquals(actualAmountOfItems, expectedAmount, "Verifying that amount of elements on cart is equal to cart badge number");
 
         Iterator<Integer> iterator = usedItemsIds.iterator();

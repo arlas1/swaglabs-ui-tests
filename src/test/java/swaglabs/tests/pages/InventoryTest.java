@@ -14,7 +14,7 @@ public class InventoryTest extends BaseTest {
     InventoryFacade inventoryFacade;
 
     @BeforeClass
-    public void loginToAccessPageWithHeader() {
+    public void loginToAccessInventoryPage() {
         loginPageFacade
                 .enterValidUsername(Credentials.Usernames.STANDARD_USER)
                 .enterValidPassword()
@@ -102,7 +102,7 @@ public class InventoryTest extends BaseTest {
     }
 
     @Test
-    public void givenOneAddedToCartItem_WhenClickOnItemRemoveButton_ThenItemRemovedFromCart_AndThenCartBadgeDisappeared() {
+    public void givenTwoAddedToCartItem_WhenClickOnSecondItemRemoveButton_ThenCartBadgeDisplays1() {
         inventoryFacade
                 .addItemToCart()
                 .addItemToCart()

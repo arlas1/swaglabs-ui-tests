@@ -1,13 +1,13 @@
-package ui.pages.inventoryItemPage;
+package ui.pages.itemPage;
 
 import org.openqa.selenium.WebDriver;
 import ui.pages.BasePage;
 import ui.pages.inventoryPage.InventoryPage;
 
-public class InventoryItemPage extends BasePage {
-    private final InventoryItemPageElements elements = new InventoryItemPageElements(driver);
+public class ItemPage extends BasePage {
+    private final ItemPageElements elements = new ItemPageElements(driver);
 
-    public InventoryItemPage(WebDriver driver) {
+    public ItemPage(WebDriver driver) {
         super(driver);
     }
 
@@ -16,19 +16,23 @@ public class InventoryItemPage extends BasePage {
         return new InventoryPage(driver);
     }
 
-    public InventoryItemPage addItemToCart() {
+    public ItemPage addItemToCart() {
         click(elements.itemAddToCartButton, "add to cart button");
         return this;
     }
 
-    public InventoryItemPage removeItemFromCart() {
+    public ItemPage removeItemFromCart() {
         click(elements.itemRemoveButton, "remove from cart button");
         return this;
     }
 
-    public InventoryItemPage isItemTitleTextColorChangedOnHover() {
+    public ItemPage isItemTitleTextColorChangedOnHover() {
         isTextColorChangedOnHover(elements.itemTitle, "item title");
         return this;
+    }
+
+    public boolean isItemTitleVisible() {
+        return explicitWaitForVisibility(elements.itemTitle, "item title");
     }
 
     public boolean isItemImageVisible() {

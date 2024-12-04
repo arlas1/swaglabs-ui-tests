@@ -5,7 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ui.pages.BasePage;
-import ui.pages.inventoryItemPage.InventoryItemPage;
+import ui.pages.itemPage.ItemPage;
 
 import java.util.List;
 
@@ -62,19 +62,14 @@ public class InventoryPage extends BasePage {
         }
     }
 
-    public int getNumberOnCartBadge() {
-        return header.getAmountOfItemsOnCart();
-    }
-
-
-    public InventoryItemPage openItemByTitle(WebElement itemTitle) {
+    public ItemPage openItemByTitle(WebElement itemTitle) {
         click(itemTitle, "item title");
-        return new InventoryItemPage(driver);
+        return new ItemPage(driver);
     }
 
-    public InventoryItemPage openItemByImage(WebElement itemImage) {
+    public ItemPage openItemByImage(WebElement itemImage) {
         click(itemImage, "item image");
-        return new InventoryItemPage(driver);
+        return new ItemPage(driver);
     }
 
     public InventoryPage addToCart(WebElement itemAddToCartButton) {

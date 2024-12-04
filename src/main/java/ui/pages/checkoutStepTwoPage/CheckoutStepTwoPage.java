@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import ui.pages.BasePage;
 import ui.pages.checkoutCompletePage.CheckoutCompletePage;
 import ui.pages.inventoryPage.InventoryPage;
-import ui.pages.inventoryItemPage.InventoryItemPage;
+import ui.pages.itemPage.ItemPage;
 
 public class CheckoutStepTwoPage extends BasePage {
     private final CheckoutStepTwoPageElements elements = new CheckoutStepTwoPageElements(driver);
@@ -15,9 +15,9 @@ public class CheckoutStepTwoPage extends BasePage {
         super(driver);
     }
 
-    public InventoryItemPage openItem(WebElement itemTitle) {
+    public ItemPage openItem(WebElement itemTitle) {
         click(itemTitle, "item title");
-        return new InventoryItemPage(driver);
+        return new ItemPage(driver);
     }
 
     public InventoryPage cancelCheckout() {

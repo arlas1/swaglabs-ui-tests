@@ -13,7 +13,7 @@ public class Header extends BaseComponent {
         this.elements = new HeaderElements(driver);
     }
 
-    public int getAmountOfItemsOnCart() {
+    public int getNumberOnCartBadge() {
         String amount = getText(elements.cartBadge, "cart badge");
         return amount.isEmpty() ? 0 : Integer.parseInt(amount);
     }
