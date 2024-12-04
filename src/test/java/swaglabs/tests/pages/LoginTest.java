@@ -7,14 +7,14 @@ import org.testng.annotations.Test;
 import org.testng.annotations.Listeners;
 import swaglabs.dataproviders.LoginTestDataProvider;
 
-import static swaglabs.constants.ErrorType.*;
+import static swaglabs.constants.LoginErrorType.*;
 import static swaglabs.constants.PageUrl.*;
 import static swaglabs.constants.Credentials.Usernames;
 
 @Listeners(TestListener.class)
 public class LoginTest extends BaseTest {
 
-    @Test(dataProvider = "UsernameInputs", dataProviderClass = LoginTestDataProvider.class)
+    @Test(dataProvider = "RandomInputs", dataProviderClass = LoginTestDataProvider.class)
     public void givenRandomInput_WhenEnteredIntoUsernameField_ThenFieldStoresInput(InputType inputType, InputLength inputLength) {
         loginPageFacade
                 .enterRandomUsername(inputType, inputLength)
@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
                 .verifyUsernameFieldStoresInput();
     }
 
-    @Test(dataProvider = "PasswordInputs", dataProviderClass = LoginTestDataProvider.class)
+    @Test(dataProvider = "RandomInputs", dataProviderClass = LoginTestDataProvider.class)
     public void givenRandomInput_WhenEnteredIntoPasswordField_ThenFieldStoresInput(InputType inputType, InputLength inputLength) {
         loginPageFacade
                 .enterRandomPassword(inputType, inputLength)
@@ -36,7 +36,7 @@ public class LoginTest extends BaseTest {
                 .enterValidUsername(username)
                 .enterValidPassword()
                 .login()
-                .verifyRedirectTo(INVENTORY_PAGE_URL);
+                .verifyRedirectTo(INVENTORY_PAGE);
     }
 
     @Test

@@ -31,7 +31,7 @@ public class HeaderTest extends BaseTest  {
     public void givenCartIcon_WhenClicked_ThenUserIsRedirectedToCartPage() {
         headerFacade
                 .openCart()
-                .verifyRedirectTo(CART_PAGE_URL);
+                .verifyRedirectTo(CART_PAGE);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class HeaderTest extends BaseTest  {
         headerFacade
                 .openMenu()
                 .openAllItemsPage()
-                .verifyRedirectTo(INVENTORY_PAGE_URL);
+                .verifyRedirectTo(INVENTORY_PAGE);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class HeaderTest extends BaseTest  {
         headerFacade
                 .openMenu()
                 .openAboutPage()
-                .verifyRedirectTo(SAUCELABS_PAGE_URL);
+                .verifyRedirectTo(SAUCELABS_PAGE);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class HeaderTest extends BaseTest  {
         headerFacade
                 .openMenu()
                 .logout()
-                .verifyRedirectTo(LOGIN_PAGE_URL);
+                .verifyRedirectTo(LOGIN_PAGE);
 
         loginToAccessPageWithHeader();
     }

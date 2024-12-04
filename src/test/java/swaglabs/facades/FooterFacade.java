@@ -28,7 +28,7 @@ public class FooterFacade {
     }
 
     public FooterFacade verifyRedirectTo(PageUrl redirectPage) {
-        String currentUrl = footer.getCurrentUrl();
+        String currentUrl = footer.getCurrentUrlWithoutParameters();
         assertEquals(currentUrl, redirectPage.getUrl(),
                 "Verifying that user is redirected to '" + redirectPage.getUrl() + "'."
         );

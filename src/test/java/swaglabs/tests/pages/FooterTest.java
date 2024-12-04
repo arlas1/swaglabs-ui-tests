@@ -26,21 +26,21 @@ public class FooterTest extends BaseTest {
     public void givenTwitterIcon_WhenClicked_ThenUserIsRedirectedToSauceLabsTwitterPage() {
         footerFacade
                 .openSauceLabsTwitterPage()
-                .verifyRedirectTo(TWITTER_PAGE_URL);
+                .verifyRedirectTo(TWITTER_PAGE);
     }
 
     @Test
     public void givenFacebookIcon_WhenClicked_ThenUserIsRedirectedToSauceLabsFacebookPage() {
         footerFacade
                 .openSauceLabsFacebookPage()
-                .verifyRedirectTo(FACEBOOK_PAGE_URL);
+                .verifyRedirectTo(FACEBOOK_PAGE);
     }
 
     @Test
     public void givenLinkedInIcon_WhenClicked_ThenUserIsRedirectedToSauceLabsLinkedInPage() {
         footerFacade
                 .openSauceLabsLinkedInPage()
-                .verifyRedirectTo(LINKEDIN_PAGE_URL);
+                .verifyRedirectTo(LINKEDIN_PAGE);
     }
 
     @Test

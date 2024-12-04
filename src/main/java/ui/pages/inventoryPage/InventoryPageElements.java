@@ -10,10 +10,10 @@ import java.util.List;
 public class InventoryPageElements {
 
     @FindBy(className = "title")
-    protected WebElement productsTitle;
+    protected WebElement itemTitle;
 
-    @FindBy(className = "inventory_list")
-    protected List<WebElement> productsList;
+    @FindBy(css = "div.inventory_item")
+    protected List<WebElement> inventoryItems;
 
     @FindBy(className = "product_sort_container")
     protected WebElement filterSelect;

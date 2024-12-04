@@ -113,6 +113,18 @@ public class CustomSoftAssert {
         }
     }
 
+    public void assertNotNull(String actual, String message) {
+        try {
+            Assert.assertNotNull(message + " - String should not be null.", actual);
+            logger.info("PASS: {}", message);
+        } catch (Throwable e) {
+            String errorMessage = "FAIL: " + message + " - String was null.";
+            logger.error(errorMessage);
+            m_errors.add(new AssertionError(errorMessage));
+        }
+    }
+
+
     public void assertAll() {
         if (!m_errors.isEmpty()) {
             StringBuilder customMessage = new StringBuilder();

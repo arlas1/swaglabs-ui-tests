@@ -3,6 +3,8 @@ package swaglabs.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class CustomAssert {
     private static final Logger logger = LoggerFactory.getLogger(CustomAssert.class);
 
@@ -81,6 +83,23 @@ public class CustomAssert {
         }
         logger.info("PASS: {}", message);
     }
+
+    public static void assertEquals(List<String> actual, List<String> expected, String message) {
+        if (actual == null || expected == null) {
+            String errorMessage = String.format("FAIL: %s - One of the lists is null. Actual: %s, Expected: %s.", message, actual, expected);
+            logger.error(errorMessage);
+            throw new AssertionError(errorMessage);
+        }
+
+        if (!actual.equals(expected)) {
+            String errorMessage = String.format("FAIL: %s - Expected '%s', but got '%s'.", message, expected, actual);
+            logger.error(errorMessage);
+            throw new AssertionError(errorMessage);
+        }
+
+        logger.info("PASS: {}", message);
+    }
+
 
     public static void assertNotEquals(String actual, String expected, String message) {
         if (actual.equals(expected)) {

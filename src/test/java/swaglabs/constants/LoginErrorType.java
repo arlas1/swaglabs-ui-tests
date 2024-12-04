@@ -1,6 +1,6 @@
 package swaglabs.constants;
 
-public enum ErrorType {
+public enum LoginErrorType {
     USERNAME_REQUIRED("Epic sadface: Username is required"),
     PASSWORD_REQUIRED("Epic sadface: Password is required"),
     INVALID_USERNAME_OR_PASSWORD("Epic sadface: Username and password do not match any user in this service"),
@@ -8,7 +8,7 @@ public enum ErrorType {
 
     private final String message;
 
-    ErrorType(String message) {
+    LoginErrorType(String message) {
         this.message = message;
     }
 

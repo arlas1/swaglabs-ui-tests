@@ -7,8 +7,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import swaglabs.facades.LoginFacade;
 
-import static swaglabs.utils.CustomAssert.assertEquals;
-
 public abstract class BaseTest {
     public WebDriver driver;
     protected LoginFacade loginPageFacade;

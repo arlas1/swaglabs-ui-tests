@@ -1,10 +1,9 @@
 package actions;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,22 @@ public class PageActions {
     public String getCurrentUrl() {
         try {
             String currentUrl = driver.getCurrentUrl();
+            logger.info("Retrieved current page full URL - '{}'.", currentUrl);
+            return currentUrl;
+        } catch (Exception e) {
+            logger.error("Failed to get full URL for current page: {}", e.getMessage());
+            return "";
+        }
+    }
+
+    public String getCurrentUrlWithoutParameters() {
+        try {
+            String currentUrl = driver.getCurrentUrl();
             String normalizedCurrentUrl = currentUrl.split("\\?")[0];
-            logger.info("Retrieved current page URL - '{}'.", normalizedCurrentUrl);
+            logger.info("Retrieved current page URL without parameters - '{}'.", normalizedCurrentUrl);
             return normalizedCurrentUrl;
         } catch (Exception e) {
-            logger.error("Failed to get URL for current page: {}", e.getMessage());
+            logger.error("Failed to get URL without parameters for current page: {}", e.getMessage());
             return "";
         }
     }
@@ -71,13 +81,12 @@ public class PageActions {
         }
     }
 
-
     public boolean explicitWaitForVisibility(WebElement element, String elementName) {
         try {
             int timeOut = 3;
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.visibilityOf(element));
-            logger.info("'{}' is visible after explicit wait.", elementName);
+//            logger.info("'{}' is visible after explicit wait.", elementName);
             return true;
         } catch (Exception e) {
             logger.error("Failed to wait for visibility of '{}': {}", elementName, e.getMessage());
@@ -102,6 +111,17 @@ public class PageActions {
             logger.info("Clicked on '{}'.", elementName);
         } catch (Exception e) {
             logger.error("Failed to click on '{}': {}", elementName, e.getMessage());
+        }
+    }
+
+    public void selectDropdownByValue(WebElement dropdownElement, String value, String dropdownName) {
+        try {
+            this.explicitWaitForVisibility(dropdownElement, dropdownName);
+            Select dropdown = new Select(dropdownElement);
+            dropdown.selectByValue(value);
+            logger.info("Selected '{}'.", dropdownName);
+        } catch (Exception e) {
+            logger.error("Failed to select value '{}' in dropdown '{}': {}", value, dropdownName, e.getMessage());
         }
     }
 
@@ -132,17 +152,35 @@ public class PageActions {
         }
     }
 
+    public WebElement findElement(WebElement parentElement, By locator, String elementName) {
+        try {
+            WebElement element = parentElement.findElement(locator);
+            return element;
+        } catch (NoSuchElementException e) {
+            logger.warn("Element '{}' not found. Returning null.", elementName);
+            return null;
+        } catch (Exception e) {
+            logger.error("Failed to locate element '{}': {}", elementName, e.getMessage());
+            return null;
+        }
+    }
+
+
     public String getText(WebElement element, String elementName) {
         try {
             this.explicitWaitForVisibility(element, elementName);
             String text = element.getText().trim();
             logger.info("Retrieved text '{}' from '{}'.", text, elementName);
             return text;
+        } catch (NoSuchElementException e) {
+            logger.warn("Element '{}' not found. Returning empty string.", elementName);
+            return "";
         } catch (Exception e) {
             logger.error("Failed to retrieve text from '{}': {}", elementName, e.getMessage());
             return "";
         }
     }
+
 
     public boolean isTextColorChangedOnHover(WebElement element, String elementName) {
         try {
@@ -165,8 +203,6 @@ public class PageActions {
         }
     }
 
-
-
     public String getInputValue(WebElement element, String elementName) {
         try {
             this.explicitWaitForVisibility(element, elementName);
@@ -188,15 +224,4 @@ public class PageActions {
             logger.error("Failed to scroll to element '{}': {}", elementName, e.getMessage());
         }
     }
-
-
-//    public void moveToElement(WebElement element, String elementName) {
-//        try {
-//            this.explicitWaitForVisibility(element, elementName);
-//            actions.moveToElement(element).perform();
-//            logger.info("Moved to '{}'.", elementName);
-//        } catch (Exception e) {
-//            logger.error("Failed to move to '{}': {}", elementName, e.getMessage());
-//        }
-//    }
 }

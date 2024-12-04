@@ -1,7 +1,7 @@
 package swaglabs.facades;
 
 import config.*;
-import swaglabs.constants.ErrorType;
+import swaglabs.constants.LoginErrorType;
 import swaglabs.constants.PageUrl;
 import swaglabs.constants.Credentials;
 import org.openqa.selenium.WebDriver;
@@ -96,7 +96,7 @@ public class LoginFacade {
         return this;
     }
 
-    public void verifyErrorMessage(ErrorType errorType) {
+    public void verifyErrorMessage(LoginErrorType errorType) {
         this.expectedErrorMessage = loginPage.getErrorMessage();
         this.actualErrorMessage = errorType.getMessage();
 

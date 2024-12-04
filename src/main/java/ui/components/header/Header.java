@@ -15,7 +15,7 @@ public class Header extends BaseComponent {
 
     public int getAmountOfItemsOnCart() {
         String amount = getText(elements.cartBadge, "cart badge");
-        return Integer.parseInt(amount);
+        return amount.isEmpty() ? 0 : Integer.parseInt(amount);
     }
 
     public CartPage openCart() {

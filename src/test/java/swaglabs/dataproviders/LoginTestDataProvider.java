@@ -6,18 +6,8 @@ import org.testng.annotations.DataProvider;
 
 public class LoginTestDataProvider {
 
-    @DataProvider(name = "UsernameInputs")
-    public static Object[][] usernameInputs() {
-        return new Object[][]{
-                {InputType.ALPHABET, InputLength.SHORT},
-                {InputType.ALPHABET, InputLength.LONG},
-                {InputType.COMPLEX, InputLength.SHORT},
-                {InputType.COMPLEX, InputLength.LONG}
-        };
-    }
-
-    @DataProvider(name = "PasswordInputs")
-    public static Object[][] passwordInputs() {
+    @DataProvider(name = "RandomInputs")
+    public static Object[][] randomInputs() {
         return new Object[][]{
                 {InputType.ALPHABET, InputLength.SHORT},
                 {InputType.ALPHABET, InputLength.LONG},
