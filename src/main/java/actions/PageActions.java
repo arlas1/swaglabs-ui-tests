@@ -110,7 +110,7 @@ public class PageActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             element.clear();
-            logger.info("Cleared field '{}'.", elementName);
+//            logger.info("Cleared field '{}'.", elementName);
         } catch (Exception e) {
             logger.error("Failed to clear field '{}': {}", elementName, e.getMessage());
         }

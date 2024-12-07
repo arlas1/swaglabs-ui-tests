@@ -1,12 +1,15 @@
 package ui.pages.checkoutStepTwoPage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ui.pages.BasePage;
 import ui.pages.checkoutCompletePage.CheckoutCompletePage;
 import ui.pages.inventoryPage.InventoryPage;
 import ui.pages.itemPage.ItemPage;
+
+import java.util.List;
 
 public class CheckoutStepTwoPage extends BasePage {
     private final CheckoutStepTwoPageElements elements = new CheckoutStepTwoPageElements(driver);
@@ -15,7 +18,23 @@ public class CheckoutStepTwoPage extends BasePage {
         super(driver);
     }
 
-    public ItemPage openItem(WebElement itemTitle) {
+    public List<WebElement> getCartItems() {
+        return elements.cartItems;
+    }
+
+    public int getItemId(WebElement inventoryItem) {
+        try {
+            WebElement itemLink = findElement(inventoryItem, By.cssSelector("a[id*='item_']"), "item link");
+            String idValue = itemLink.getAttribute("id");
+            String itemId = idValue.replaceAll("\\D+", "");
+            return Integer.parseInt(itemId);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("Item ID not found for the given inventory item.", e);
+        }
+    }
+
+    public ItemPage openItem(WebElement item) {
+        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
         click(itemTitle, "item title");
         return new ItemPage(driver);
     }
@@ -31,19 +50,15 @@ public class CheckoutStepTwoPage extends BasePage {
     }
 
     public boolean isCheckoutOverviewTextVisible() {
-        return explicitWaitForVisibility(elements.checkoutOverviewText, "checkout overview text");
+        return explicitWaitForVisibility(elements.checkoutOverviewTitle, "checkout overview text");
     }
 
-    public boolean isQtyTextVisible() {
-        return explicitWaitForVisibility(elements.qtyText, "quantity text");
+    public boolean isQtyLabelVisible() {
+        return explicitWaitForVisibility(elements.qtyLabel, "quantity label");
     }
 
-    public boolean isDescriptionTextVisible() {
-        return explicitWaitForVisibility(elements.descriptionText, "description text");
-    }
-
-    public boolean areAllItemsVisible() {
-        return explicitWaitForVisibilityOfList(elements.itemsList, "items list");
+    public boolean isDescriptionLabelVisible() {
+        return explicitWaitForVisibility(elements.descriptionLabel, "description label");
     }
 
     public boolean isPaymentInformationVisible() {

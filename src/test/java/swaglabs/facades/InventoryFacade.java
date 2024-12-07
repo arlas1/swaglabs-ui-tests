@@ -184,7 +184,7 @@ public class InventoryFacade {
         String expectedUrl = "https://www.saucedemo.com/inventory-item.html?id=" + this.redirectItemId;
         String actualUrl = inventoryPage.getCurrentUrl();
 
-        assertEquals(actualUrl, expectedUrl, "Verifying that pressing on item title lead to right page");
+        assertEquals(actualUrl, expectedUrl, "Verifying that pressing on item title lead to right item page");
         inventoryPage.openUrl(INVENTORY_PAGE);
     }
 }

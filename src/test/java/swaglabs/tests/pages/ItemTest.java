@@ -25,7 +25,7 @@ public class ItemTest extends BaseTest {
     }
 
     @Test
-    public void givenItemTitleDescriptionPriceImage_WhenPageIsLoaded_ThenTitleDescriptionPriceImageAreVisible() {
+    public void givenItemTitleDescriptionPriceImage_WhenItemPageIsLoaded_ThenTitleDescriptionPriceImageAreVisible() {
         itemFacade
                 .verifyItemTitleIsVisible()
                 .verifyItemDescriptionIsVisible()
@@ -48,7 +48,4 @@ public class ItemTest extends BaseTest {
                 .removeItemFromCart()
                 .verifyCartBadgeDisplays(0);
     }
-
-
-
 }

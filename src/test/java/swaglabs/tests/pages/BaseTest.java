@@ -7,8 +7,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import swaglabs.constants.Credentials;
 import swaglabs.facades.CartFacade;
+import swaglabs.facades.CheckoutStepOneFacade;
 import swaglabs.facades.InventoryFacade;
 import swaglabs.facades.LoginFacade;
+
+import static swaglabs.constants.InputDetails.*;
+
 
 public abstract class BaseTest {
     public WebDriver driver;
@@ -42,9 +46,19 @@ public abstract class BaseTest {
                 .openCart();
     }
 
-    protected void proceedToCheckout() {
+    protected void proceedToCheckoutStepOne() {
         CartFacade cartFacade = new CartFacade(driver);
         cartFacade
                 .goToCheckout();
+    }
+
+    protected void proceedToCheckoutStepTwo() {
+        String zipPostalCode = "11211";
+        CheckoutStepOneFacade cartFacade = new CheckoutStepOneFacade(driver);
+        cartFacade
+                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
+                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
+                .enterZipPostalCode(zipPostalCode)
+                .continueCheckout();
     }
 }

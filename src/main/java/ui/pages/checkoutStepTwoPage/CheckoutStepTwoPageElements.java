@@ -10,16 +10,16 @@ import java.util.List;
 public class CheckoutStepTwoPageElements {
 
     @FindBy(className = "title")
-    protected WebElement checkoutOverviewText;
+    protected WebElement checkoutOverviewTitle;
 
     @FindBy(className = "cart_quantity_label")
-    protected WebElement qtyText;
+    protected WebElement qtyLabel;
 
     @FindBy(className = "cart_desc_label")
-    protected WebElement descriptionText;
+    protected WebElement descriptionLabel;
 
-    @FindBy(className = "cart_list")
-    protected List<WebElement> itemsList;
+    @FindBy(css = "div.cart_item")
+    protected List<WebElement> cartItems;
 
     @FindBy(className = "summary_info")
     protected WebElement paymentSummaryText;

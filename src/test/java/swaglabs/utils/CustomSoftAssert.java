@@ -1,8 +1,8 @@
 package swaglabs.utils;
 
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class CustomSoftAssert {
 
     public void assertTrue(boolean condition, String message) {
         try {
-            Assert.assertTrue(message + " - Expected true but was false.", condition);
+            Assert.assertTrue(condition, message + " - Expected true but was false.");
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
             String errorMessage = "FAIL: " + message + " - Expected true but was false.";
@@ -29,8 +29,8 @@ public class CustomSoftAssert {
     public void assertContainsIgnoreCase(String completeString, String subString, String message) {
         try {
             Assert.assertTrue(
-                    message + " - '" + completeString + "' does not contain '" + subString + "' (case-insensitive).",
-                    completeString.toLowerCase().contains(subString.toLowerCase())
+                    completeString.toLowerCase().contains(subString.toLowerCase()),
+                    message + " - '" + completeString + "' does not contain '" + subString + "' (case-insensitive)."
             );
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
@@ -42,7 +42,7 @@ public class CustomSoftAssert {
 
     public void assertEquals(String actual, String expected, String message) {
         try {
-            Assert.assertEquals(message + " - Expected '" + expected + "', but got '" + actual + "'.", expected, actual);
+            Assert.assertEquals(actual, expected, message + " - Expected '" + expected + "', but got '" + actual + "'.");
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
             String errorMessage = "FAIL: " + message + " - Expected '" + expected + "', but got '" + actual + "'.";
@@ -54,9 +54,9 @@ public class CustomSoftAssert {
     public void assertEqualsIgnoreCase(String actual, String expected, String message) {
         try {
             Assert.assertEquals(
-                    message + " - Expected '" + expected + "', but got '" + actual + "' (case-insensitive).",
+                    actual.toLowerCase(),
                     expected.toLowerCase(),
-                    actual.toLowerCase()
+                    message + " - Expected '" + expected + "', but got '" + actual + "' (case-insensitive)."
             );
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
@@ -68,7 +68,7 @@ public class CustomSoftAssert {
 
     public void assertEquals(double actual, double expected, String message) {
         try {
-            Assert.assertEquals(message + " - Expected '" + expected + "', but got '" + actual + "'.", expected, actual, 0.00001);
+            Assert.assertEquals(actual, expected, 0.00001, message + " - Expected '" + expected + "', but got '" + actual + "'.");
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
             String errorMessage = "FAIL: " + message + " - Expected '" + expected + "', but got '" + actual + "'.";
@@ -79,7 +79,7 @@ public class CustomSoftAssert {
 
     public void assertEquals(int actual, int expected, String message) {
         try {
-            Assert.assertEquals(message + " - Expected '" + expected + "', but got '" + actual + "'.", expected, actual);
+            Assert.assertEquals(actual, expected, message + " - Expected '" + expected + "', but got '" + actual + "'.");
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
             String errorMessage = "FAIL: " + message + " - Expected '" + expected + "', but got '" + actual + "'.";
@@ -91,8 +91,8 @@ public class CustomSoftAssert {
     public void assertContains(String completeString, String subString, String message) {
         try {
             Assert.assertTrue(
-                    message + " - '" + completeString + "' does not contain '" + subString + "'.",
-                    completeString.contains(subString)
+                    completeString.contains(subString),
+                    message + " - '" + completeString + "' does not contain '" + subString + "'."
             );
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
@@ -104,7 +104,7 @@ public class CustomSoftAssert {
 
     public void assertEquals(Boolean actual, Boolean expected, String message) {
         try {
-            Assert.assertEquals(message + " - Expected '" + expected + "', but got '" + actual + "'.", expected, actual);
+            Assert.assertEquals(actual, expected, message + " - Expected '" + expected + "', but got '" + actual + "'.");
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
             String errorMessage = "FAIL: " + message + " - Expected '" + expected + "', but got '" + actual + "'.";
@@ -115,7 +115,7 @@ public class CustomSoftAssert {
 
     public void assertNotNull(String actual, String message) {
         try {
-            Assert.assertNotNull(message + " - String should not be null.", actual);
+            Assert.assertNotNull(actual, message + " - String should not be null.");
             logger.info("PASS: {}", message);
         } catch (Throwable e) {
             String errorMessage = "FAIL: " + message + " - String was null.";
@@ -123,7 +123,6 @@ public class CustomSoftAssert {
             m_errors.add(new AssertionError(errorMessage));
         }
     }
-
 
     public void assertAll() {
         if (!m_errors.isEmpty()) {
