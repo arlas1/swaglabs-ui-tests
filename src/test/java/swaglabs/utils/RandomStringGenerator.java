@@ -23,6 +23,24 @@ public class RandomStringGenerator {
         return generateRandomString(characterPool, length);
     }
 
+    public static String generateRandomZipPostalCode() {
+        int length = RANDOM.nextInt(4) + 5;
+        StringBuilder zipCode = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            if (RANDOM.nextBoolean()) {
+                zipCode.append(RANDOM.nextInt(10));
+            } else {
+                char letter = (char) ('A' + RANDOM.nextInt(26));
+                zipCode.append(letter);
+            }
+        }
+        if (RANDOM.nextBoolean() && length > 5) {
+            int position = RANDOM.nextInt(length - 4) + 2;
+            zipCode.insert(position, RANDOM.nextBoolean() ? ' ' : '-');
+        }
+        return zipCode.toString();
+    }
+
     private static String generateRandomString(String pool, int length) {
         StringBuilder result = new StringBuilder(length);
         int poolLength = pool.length();

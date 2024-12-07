@@ -1,15 +1,14 @@
 package swaglabs.facades;
 
 import config.*;
-import swaglabs.constants.LoginErrorType;
+import swaglabs.constants.ErrorMessage;
 import swaglabs.constants.PageUrl;
 import swaglabs.constants.Credentials;
 import org.openqa.selenium.WebDriver;
 import swaglabs.utils.CustomSoftAssert;
 import ui.pages.loginPage.LoginPage;
-import swaglabs.constants.InputDetails.InputLength;
-import swaglabs.constants.InputDetails.InputType;
 
+import static swaglabs.constants.InputDetails.*;
 import static swaglabs.utils.CustomAssert.assertTrue;
 import static swaglabs.utils.CustomAssert.assertEquals;
 import static swaglabs.utils.RandomStringGenerator.generateRandomInput;
@@ -20,10 +19,8 @@ public class LoginFacade {
 
     private String expectedUsername;
     private String actualUsername;
-
     private String expectedPassword;
     private String actualPassword;
-
     private String actualErrorMessage;
     private String expectedErrorMessage;
 
@@ -36,12 +33,14 @@ public class LoginFacade {
     public LoginFacade enterRandomUsername(InputType inputType, InputLength inputLength) {
         this.expectedUsername = generateRandomInput(inputType, inputLength);
         loginPage.enterUsername(this.expectedUsername);
+        this.actualUsername = loginPage.getInputFromUsernameField();
         return this;
     }
 
     public LoginFacade enterRandomPassword(InputType inputType, InputLength inputLength) {
         this.expectedPassword = generateRandomInput(inputType, inputLength);
         loginPage.enterPassword(this.expectedPassword);
+        this.actualPassword = loginPage.getInputFromPasswordField();
         return this;
     }
 
@@ -52,16 +51,6 @@ public class LoginFacade {
 
     public LoginFacade enterValidPassword() {
         loginPage.enterPassword(Credentials.PASSWORD);
-        return this;
-    }
-
-    public LoginFacade getInputFromUsernameField() {
-        this.actualUsername = loginPage.getInputFromUsernameField();
-        return this;
-    }
-
-    public LoginFacade getInputFromPasswordField() {
-        this.actualPassword = loginPage.getInputFromPasswordField();
         return this;
     }
 
@@ -96,9 +85,9 @@ public class LoginFacade {
         return this;
     }
 
-    public void verifyErrorMessage(LoginErrorType errorType) {
+    public void verifyError(String errorType) {
         this.expectedErrorMessage = loginPage.getErrorMessage();
-        this.actualErrorMessage = errorType.getMessage();
+        this.actualErrorMessage = errorType;
 
         soft.assertTrue(loginPage.isUsernameErrorIconVisible(),
                 "Verifying that username error icon is visible."
@@ -120,9 +109,9 @@ public class LoginFacade {
         this.actualErrorMessage = null;
     }
 
-    public void verifyRedirectTo(PageUrl redirectedToUrl) {
+    public void verifyRedirectTo(String redirectedToUrl) {
         String currentUrl = loginPage.getCurrentUrl();
-        assertEquals(currentUrl, redirectedToUrl.getUrl(),
+        assertEquals(currentUrl, redirectedToUrl,
                 "Verifying that user is redirected to the inventory page."
         );
         loginPage.openUrl(Config.baseUrl);

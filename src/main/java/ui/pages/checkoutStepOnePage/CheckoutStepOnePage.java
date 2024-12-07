@@ -36,9 +36,46 @@ public class CheckoutStepOnePage extends BasePage {
         return this;
     }
 
-    public CheckoutStepTwoPage continueCheckout() {
+    public CheckoutStepOnePage continueCheckout() {
         click(elements.continueButton, "continue button");
-        return new CheckoutStepTwoPage(driver);
+        return this;
+    }
+
+    public String getInputFromFirstNameField() {
+        String firstName = getInputValue(elements.firstnameField, "firstname field");
+        cleanFirstnameField();
+        return firstName;
+    }
+
+    public String getInputFromLastnameField() {
+        String lastName = getInputValue(elements.lastnameField, "lastname field");
+        cleanLastnameField();
+        return lastName;
+    }
+
+    public String getInputZipPostalCodeField() {
+        String zipPostalCode = getInputValue(elements.zipPostalCodeField, "zip/postal code field");
+        cleanZipPostalCodeField();
+        return zipPostalCode;
+    }
+
+    public String getErrorMessage() {
+        return getText(elements.errorAlertMessage, "error alert message");
+    }
+
+    public CheckoutStepOnePage cleanFirstnameField() {
+        clearField(elements.firstnameField, "firstname field");
+        return this;
+    }
+
+    public CheckoutStepOnePage cleanLastnameField() {
+        clearField(elements.lastnameField, "lastname field");
+        return this;
+    }
+
+    public CheckoutStepOnePage cleanZipPostalCodeField() {
+        clearField(elements.zipPostalCodeField, "zip/postal code field");
+        return this;
     }
 
     public boolean isErrorAlertVisible() {
@@ -46,7 +83,7 @@ public class CheckoutStepOnePage extends BasePage {
     }
 
     public boolean isErrorAlertTextVisible() {
-        return explicitWaitForVisibility(elements.errorAlertText, "error alert text");
+        return explicitWaitForVisibility(elements.errorAlertMessage, "error alert text");
     }
 
     public boolean isFirstnameFieldErrorIconVisible() {

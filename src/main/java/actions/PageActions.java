@@ -219,7 +219,7 @@ public class PageActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             String value = element.getAttribute("value");
-            logger.info("Retrieved input value '{}' from '{}'.", value, elementName);
+//            logger.info("Retrieved input value '{}' from '{}'.", value, elementName);
             return value != null ? value : "";
         } catch (Exception e) {
             logger.error("Failed to retrieve input value from '{}': {}", elementName, e.getMessage());

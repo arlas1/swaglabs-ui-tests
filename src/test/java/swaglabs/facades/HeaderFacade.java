@@ -28,13 +28,12 @@ public class HeaderFacade {
         return this;
     }
 
-    public void verifyRedirectTo(PageUrl redirectedToUrl) {
-        String redirectPageUrl = redirectedToUrl.getUrl();
+    public void verifyRedirectTo(String redirectUrl) {
         String currentUrl = header.getCurrentUrl();
-        assertEquals(currentUrl, redirectPageUrl,
-                "Verifying that user is redirected to the" + redirectPageUrl + " ."
+        assertEquals(currentUrl, redirectUrl,
+                "Verifying that user is redirected to the" + redirectUrl + " ."
         );
-        header.openUrl(INVENTORY_PAGE.getUrl());
+        header.openUrl(INVENTORY_PAGE);
     }
 
     public HeaderFacade openMenu() {

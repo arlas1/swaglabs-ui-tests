@@ -27,10 +27,10 @@ public class FooterFacade {
         return this;
     }
 
-    public FooterFacade verifyRedirectTo(PageUrl redirectPage) {
+    public FooterFacade verifyRedirectTo(String redirectUrl) {
         String currentUrl = footer.getCurrentUrlWithoutParameters();
-        assertEquals(currentUrl, redirectPage.getUrl(),
-                "Verifying that user is redirected to '" + redirectPage.getUrl() + "'."
+        assertEquals(currentUrl, redirectUrl,
+                "Verifying that user is redirected to '" + redirectUrl + "'."
         );
         footer.closeCurrentTabAndSwitchBack();
         return this;

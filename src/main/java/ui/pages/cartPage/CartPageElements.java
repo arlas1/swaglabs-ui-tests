@@ -18,13 +18,13 @@ public class CartPageElements {
     @FindBy(className = "cart_desc_label")
     protected WebElement descriptionText;
 
-    @FindBy(className = "cart_list")
-    protected List<WebElement> cartItemsList;
+    @FindBy(css = "div.cart_item")
+    protected List<WebElement> cartItems;
 
-    @FindBy(className = "continue-shopping")
+    @FindBy(id = "continue-shopping")
     protected WebElement continueShoppingButton;
 
-    @FindBy(className = "checkout")
+    @FindBy(id = "checkout")
     protected WebElement checkoutButton;
 
     protected CartPageElements(WebDriver driver) {

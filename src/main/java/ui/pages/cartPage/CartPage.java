@@ -1,18 +1,25 @@
 package ui.pages.cartPage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ui.pages.BasePage;
 import ui.pages.checkoutStepOnePage.CheckoutStepOnePage;
 import ui.pages.inventoryPage.InventoryPage;
-import ui.pages.inventoryItemPage.InventoryItemPage;
+import ui.pages.itemPage.ItemPage;
+
+import java.util.List;
 
 public class CartPage extends BasePage {
     private final CartPageElements elements = new CartPageElements(driver);
 
     public CartPage(WebDriver driver) {
         super(driver);
+    }
+
+    public List<WebElement> getCartItems() {
+        return elements.cartItems;
     }
 
     public InventoryPage continueShopping() {
@@ -25,54 +32,62 @@ public class CartPage extends BasePage {
         return new CheckoutStepOnePage(driver);
     }
 
-    public CartPage removeItem(WebElement removeButton) {
+    public CartPage removeItem(WebElement item) {
+        WebElement removeButton = findElement(item, By.cssSelector("button[data-test^='remove']"), "item remove button");
         click(removeButton, "remove item button");
         return this;
     }
 
-    public InventoryItemPage openItem(WebElement itemTitle) {
+    public ItemPage openItem(WebElement item) {
+        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
         click(itemTitle, "item title");
-        return new InventoryItemPage(driver);
+        return new ItemPage(driver);
     }
 
-    public boolean isYourCartTextVisible() {
-        return explicitWaitForVisibility(elements.yourCartText, "your cart text");
+    public int getItemId(WebElement inventoryItem) {
+        try {
+            WebElement itemLink = findElement(inventoryItem, By.cssSelector("a[id*='item_']"), "item link");
+            String idValue = itemLink.getAttribute("id");
+            String itemId = idValue.replaceAll("\\D+", "");
+            return Integer.parseInt(itemId);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("Item ID not found for the given inventory item.", e);
+        }
     }
 
-    public boolean isQtyTextVisible() {
-        return explicitWaitForVisibility(elements.qtyText, "qty text");
+    public WebElement getItemTitle(WebElement item) {
+        return findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
     }
 
-    public boolean isDescriptionTextVisible() {
-        return explicitWaitForVisibility(elements.descriptionText, "description text");
+    public boolean isItemTitleColorChangedOnHover(WebElement item) {
+        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
+        return isTextColorChangedOnHover(itemTitle, "item title");
     }
 
-    public boolean isCartItemsListVisible() {
-        return explicitWaitForVisibilityOfList(elements.cartItemsList, "cart items list");
+    public boolean isYourCartTitleVisible() {
+        return explicitWaitForVisibility(elements.yourCartText, "Your Cart title");
     }
 
-    public boolean isItemQuantityVisible(WebElement cartItem) {
-        WebElement itemQuantity = cartItem.findElement(By.cssSelector("div[data-test='item-quantity']"));
-        return explicitWaitForVisibility(itemQuantity, "item quantity");
+    public boolean isQtyLabelVisible() {
+        return explicitWaitForVisibility(elements.qtyText, "Qty label");
     }
 
-    public boolean isItemTitleVisible(WebElement cartItem) {
-        WebElement itemTitle = cartItem.findElement(By.cssSelector("div[data-test='inventory-item-name']"));
-        return explicitWaitForVisibility(itemTitle, "item title");
+    public boolean isDescriptionLabelVisible() {
+        return explicitWaitForVisibility(elements.descriptionText, "Description label");
     }
 
-    public boolean isItemDescriptionVisible(WebElement cartItem) {
-        WebElement itemDescription = cartItem.findElement(By.cssSelector("div[data-test='inventory-item-desc']"));
-        return explicitWaitForVisibility(itemDescription, "item description");
+    public boolean isItemTitleVisible(WebElement item) {
+        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
+        return itemTitle != null;
     }
 
-    public boolean isItemPriceVisible(WebElement cartItem) {
-        WebElement itemPrice = cartItem.findElement(By.cssSelector("div[data-test='inventory-item-price']"));
-        return explicitWaitForVisibility(itemPrice, "item price");
+    public boolean isItemDescriptionVisible(WebElement item) {
+        WebElement itemDescription = findElement(item, By.cssSelector("div[data-test='inventory-item-desc']"), "item description");
+        return itemDescription != null;
     }
 
-    public boolean isItemRemoveButtonVisible(WebElement cartItem) {
-        WebElement removeButton = cartItem.findElement(By.cssSelector("button[data-test^='remove-']"));
-        return explicitWaitForVisibility(removeButton, "item remove button");
+    public boolean isItemPriceVisible(WebElement item) {
+        WebElement itemPrice = findElement(item, By.cssSelector("div[data-test='inventory-item-price']"), "item price");
+        return itemPrice != null;
     }
 }

@@ -15,10 +15,7 @@ public class InventoryTest extends BaseTest {
 
     @BeforeClass
     public void loginToAccessInventoryPage() {
-        loginPageFacade
-                .enterValidUsername(Credentials.Usernames.STANDARD_USER)
-                .enterValidPassword()
-                .login();
+        loginAsStandardUser();
         this.inventoryFacade = new InventoryFacade(driver);
     }
 

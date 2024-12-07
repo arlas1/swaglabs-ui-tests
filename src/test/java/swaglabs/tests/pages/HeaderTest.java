@@ -15,10 +15,7 @@ public class HeaderTest extends BaseTest  {
 
     @BeforeClass
     public void loginToAccessPageWithHeader() {
-        loginPageFacade
-                .enterValidUsername(Usernames.STANDARD_USER)
-                .enterValidPassword()
-                .login();
+       loginAsStandardUser();
         this.headerFacade = new HeaderFacade(driver);
     }
 

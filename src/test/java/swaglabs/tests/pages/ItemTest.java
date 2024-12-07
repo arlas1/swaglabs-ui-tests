@@ -17,10 +17,7 @@ public class ItemTest extends BaseTest {
 
     @BeforeClass
     public void loginToAccessInventoryPageAndClickOnItem() {
-        loginPageFacade
-                .enterValidUsername(Credentials.Usernames.STANDARD_USER)
-                .enterValidPassword()
-                .login();
+        loginAsStandardUser();
         this.inventoryFacade = new InventoryFacade(driver);
         inventoryFacade
                 .clickOnItemTitle(0);

@@ -29,6 +29,10 @@ public class InventoryFacade {
         this.items = inventoryPage.getInventoryItems();
     }
 
+    public void openCart() {
+        inventoryPage.header.openCart();
+    }
+
     public InventoryFacade clickOnItemTitle(int position) {
         WebElement item = this.items.get(position);
         WebElement itemTitle = inventoryPage.getItemTitle(item);
@@ -147,7 +151,7 @@ public class InventoryFacade {
         assertEquals(itemsPrices, sortedItemsPrices, "Verifying that items are sorted in order: " + sortType);
     }
 
-    public void verifyCartBadgeDisplays(int expectedAmount) {
+    public InventoryFacade verifyCartBadgeDisplays(int expectedAmount) {
         int actualAmountOfItems = inventoryPage.header.getNumberOnCartBadge();
         assertEquals(actualAmountOfItems, expectedAmount, "Verifying that amount of elements on cart is equal to cart badge number");
 
@@ -162,6 +166,7 @@ public class InventoryFacade {
                 this.addedItemsCount--;
             }
         }
+        return this;
     }
 
     public void verifyItemAddToCartButtonChangeToRemoveButton(int position) {
@@ -180,6 +185,6 @@ public class InventoryFacade {
         String actualUrl = inventoryPage.getCurrentUrl();
 
         assertEquals(actualUrl, expectedUrl, "Verifying that pressing on item title lead to right page");
-        inventoryPage.openUrl(INVENTORY_PAGE.getUrl());
+        inventoryPage.openUrl(INVENTORY_PAGE);
     }
 }

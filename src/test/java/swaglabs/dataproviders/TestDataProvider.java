@@ -4,7 +4,7 @@ import swaglabs.constants.Credentials;
 import swaglabs.constants.InputDetails.*;
 import org.testng.annotations.DataProvider;
 
-public class LoginTestDataProvider {
+public class TestDataProvider {
 
     @DataProvider(name = "RandomInputs")
     public static Object[][] randomInputs() {
@@ -26,5 +26,17 @@ public class LoginTestDataProvider {
                 {Credentials.Usernames.VISUAL_USER}
         };
     }
+
+    @DataProvider(name = "ValidZipPostalCodes")
+    public static Object[][] validZipPostalCodes() {
+        return new Object[][]{
+                {"12345"},
+                {"W1A 1AA"},
+                {"110001"},
+                {"75008"},
+                {"1010"}
+        };
+    }
+
 }
 

@@ -16,11 +16,11 @@ public class CheckoutStepOnePageElements {
     @FindBy(id = "postal-code")
     protected WebElement zipPostalCodeField;
 
-    @FindBy(id = "error")
+    @FindBy(className = "error")
     protected WebElement errorAlert;
 
     @FindBy(css = "h3[data-test='error']")
-    protected WebElement errorAlertText;
+    protected WebElement errorAlertMessage;
 
     @FindBy(className = "error-button")
     protected WebElement errorAlertCloseButton;

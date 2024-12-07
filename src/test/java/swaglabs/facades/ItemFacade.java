@@ -63,10 +63,10 @@ public class ItemFacade {
         return this;
     }
 
-    public ItemFacade verifyRedirectTo(PageUrl redirectPage) {
+    public ItemFacade verifyRedirectTo(String redirectPage) {
         String currentUrl = itemPage.getCurrentUrl();
-        assertEquals(currentUrl, redirectPage.getUrl(),
-                "Verifying that user is redirected to '" + redirectPage.getUrl() + "'."
+        assertEquals(currentUrl, redirectPage,
+                "Verifying that user is redirected to '" + redirectPage + "'."
         );
         itemPage.goToPreviousPage();
         return this;

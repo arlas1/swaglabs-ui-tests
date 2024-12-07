@@ -5,32 +5,30 @@ import swaglabs.constants.InputDetails.InputType;
 import listener.TestListener;
 import org.testng.annotations.Test;
 import org.testng.annotations.Listeners;
-import swaglabs.dataproviders.LoginTestDataProvider;
+import swaglabs.dataproviders.TestDataProvider;
 
-import static swaglabs.constants.LoginErrorType.*;
+import static swaglabs.constants.ErrorMessage.*;
 import static swaglabs.constants.PageUrl.*;
 import static swaglabs.constants.Credentials.Usernames;
 
 @Listeners(TestListener.class)
 public class LoginTest extends BaseTest {
 
-    @Test(dataProvider = "RandomInputs", dataProviderClass = LoginTestDataProvider.class)
+    @Test(dataProvider = "RandomInputs", dataProviderClass = TestDataProvider.class)
     public void givenRandomInput_WhenEnteredIntoUsernameField_ThenFieldStoresInput(InputType inputType, InputLength inputLength) {
         loginPageFacade
                 .enterRandomUsername(inputType, inputLength)
-                .getInputFromUsernameField()
                 .verifyUsernameFieldStoresInput();
     }
 
-    @Test(dataProvider = "RandomInputs", dataProviderClass = LoginTestDataProvider.class)
+    @Test(dataProvider = "RandomInputs", dataProviderClass = TestDataProvider.class)
     public void givenRandomInput_WhenEnteredIntoPasswordField_ThenFieldStoresInput(InputType inputType, InputLength inputLength) {
         loginPageFacade
                 .enterRandomPassword(inputType, inputLength)
-                .getInputFromPasswordField()
                 .verifyPasswordFieldStoresInput();
     }
 
-    @Test(dataProvider = "ValidUserCredentials", dataProviderClass = LoginTestDataProvider.class)
+    @Test(dataProvider = "ValidUserCredentials", dataProviderClass = TestDataProvider.class)
     public void givenValidUserCredentials_WhenLoginAttempted_ThenUserIsRedirectedToInventoryPage(String username) {
         loginPageFacade
                 .enterValidUsername(username)
@@ -43,7 +41,7 @@ public class LoginTest extends BaseTest {
     public void givenEmptyUsernameAndPassword_WhenLoginAttempted_ThenUsernameRequiredErrorDisplayed() {
         loginPageFacade
                 .login()
-                .verifyErrorMessage(USERNAME_REQUIRED);
+                .verifyError(USERNAME_REQUIRED);
     }
 
     @Test
@@ -51,7 +49,7 @@ public class LoginTest extends BaseTest {
         loginPageFacade
                 .enterRandomUsername(InputType.ALPHABET, InputLength.SHORT)
                 .login()
-                .verifyErrorMessage(PASSWORD_REQUIRED);
+                .verifyError(PASSWORD_REQUIRED);
     }
 
     @Test
@@ -60,7 +58,7 @@ public class LoginTest extends BaseTest {
                 .enterRandomUsername(InputType.ALPHABET, InputLength.SHORT)
                 .enterRandomPassword(InputType.ALPHABET, InputLength.SHORT)
                 .login()
-                .verifyErrorMessage(INVALID_USERNAME_OR_PASSWORD);
+                .verifyError(INVALID_USERNAME_OR_PASSWORD);
     }
 
     @Test
@@ -69,7 +67,7 @@ public class LoginTest extends BaseTest {
                 .enterRandomUsername(InputType.ALPHABET, InputLength.SHORT)
                 .enterValidPassword()
                 .login()
-                .verifyErrorMessage(INVALID_USERNAME_OR_PASSWORD);
+                .verifyError(INVALID_USERNAME_OR_PASSWORD);
     }
 
     @Test
@@ -78,7 +76,7 @@ public class LoginTest extends BaseTest {
                 .enterValidUsername(Usernames.STANDARD_USER)
                 .enterRandomPassword(InputType.ALPHABET, InputLength.SHORT)
                 .login()
-                .verifyErrorMessage(INVALID_USERNAME_OR_PASSWORD);
+                .verifyError(INVALID_USERNAME_OR_PASSWORD);
     }
 
     @Test
@@ -87,7 +85,7 @@ public class LoginTest extends BaseTest {
                 .enterValidUsername(Usernames.LOCKED_OUT_USER)
                 .enterValidPassword()
                 .login()
-                .verifyErrorMessage(USER_LOCKED);
+                .verifyError(USER_LOCKED);
     }
 
     @Test

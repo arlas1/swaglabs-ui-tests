@@ -15,10 +15,7 @@ public class FooterTest extends BaseTest {
 
     @BeforeClass
     public void loginToAccessPageWithFooter() {
-        loginPageFacade
-                .enterValidUsername(Credentials.Usernames.STANDARD_USER)
-                .enterValidPassword()
-                .login();
+        loginAsStandardUser();
         this.footerFacade = new FooterFacade(driver);
     }
 
