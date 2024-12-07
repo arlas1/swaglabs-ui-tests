@@ -10,6 +10,18 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    public String getErrorMessage() {
+        return getText(elements.errorAlertMessage, "error alert message");
+    }
+
+    public String getInputFromUsernameField() {
+        return getInputValue(elements.usernameField, "username field");
+    }
+
+    public String getInputFromPasswordField() {
+        return getInputValue(elements.passwordField, "password field");
+    }
+
     public LoginPage enterUsername(String username) {
         sendKeys(elements.usernameField, username, "username field");
         return this;
@@ -28,18 +40,6 @@ public class LoginPage extends BasePage {
     public LoginPage closeErrorAlert() {
         click(elements.errorAlertCloseButton, "error alert close button");
         return this;
-    }
-
-    public String getErrorMessage() {
-        return getText(elements.errorAlertMessage, "error alert message");
-    }
-
-    public String getInputFromUsernameField() {
-        return getInputValue(elements.usernameField, "username field");
-    }
-
-    public String getInputFromPasswordField() {
-        return getInputValue(elements.passwordField, "password field");
     }
 
     public void cleanUsernameField() {

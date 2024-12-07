@@ -1,19 +1,14 @@
 package swaglabs.facades;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import swaglabs.constants.PageUrl;
 import swaglabs.utils.CustomSoftAssert;
 import ui.pages.itemPage.ItemPage;
 
-import java.util.Iterator;
-
 import static swaglabs.utils.CustomAssert.assertEquals;
-import static swaglabs.utils.CustomAssert.assertTrue;
 
 public class ItemFacade {
-    private final ItemPage itemPage;
-    private final CustomSoftAssert soft;
+    private ItemPage itemPage;
+    private CustomSoftAssert soft;
     public InventoryFacade inventoryFacade;
 
     public ItemFacade(WebDriver driver) {

@@ -26,11 +26,6 @@ public class ItemPage extends BasePage {
         return this;
     }
 
-    public ItemPage isItemTitleTextColorChangedOnHover() {
-        isTextColorChangedOnHover(elements.itemTitle, "item title");
-        return this;
-    }
-
     public boolean isItemTitleVisible() {
         return explicitWaitForVisibility(elements.itemTitle, "item title");
     }

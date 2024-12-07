@@ -15,8 +15,8 @@ import static swaglabs.constants.PageUrl.INVENTORY_PAGE;
 import static swaglabs.utils.CustomAssert.assertEquals;
 
 public class InventoryFacade {
-    private final InventoryPage inventoryPage;
-    private final CustomSoftAssert soft;
+    private InventoryPage inventoryPage;
+    private CustomSoftAssert soft;
 
     private List<WebElement> items;
     private List<Integer> usedItemsIds = new ArrayList<>();
@@ -35,9 +35,8 @@ public class InventoryFacade {
 
     public InventoryFacade clickOnItemTitle(int position) {
         WebElement item = this.items.get(position);
-        WebElement itemTitle = inventoryPage.getItemTitle(item);
         this.redirectItemId = inventoryPage.getItemId(item);
-        inventoryPage.openItemByTitle(itemTitle);
+        inventoryPage.openItemByTitle(item);
         return this;
     }
 

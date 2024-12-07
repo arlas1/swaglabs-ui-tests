@@ -2,7 +2,6 @@ package swaglabs.facades;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import swaglabs.constants.PageUrl;
 import swaglabs.utils.CustomSoftAssert;
 import ui.pages.cartPage.CartPage;
 
@@ -12,8 +11,8 @@ import static swaglabs.constants.PageUrl.CART_PAGE;
 import static swaglabs.utils.CustomAssert.*;
 
 public class CartFacade {
-    private final CartPage cartPage;
-    private final CustomSoftAssert soft;
+    private CartPage cartPage;
+    private CustomSoftAssert soft;
     public InventoryFacade inventoryFacade;
     private int redirectItemId;
 
@@ -28,7 +27,7 @@ public class CartFacade {
         List<WebElement> cartItems = cartPage.getCartItems();
         WebElement item = cartItems.get(position);
         this.redirectItemId = cartPage.getItemId(item);
-        cartPage.openItem(item);
+        cartPage.openItemByTitle(item);
         return this;
     }
 

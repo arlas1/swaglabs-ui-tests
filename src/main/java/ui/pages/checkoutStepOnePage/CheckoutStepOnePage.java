@@ -2,7 +2,6 @@ package ui.pages.checkoutStepOnePage;
 
 import org.openqa.selenium.WebDriver;
 import ui.pages.BasePage;
-import ui.pages.checkoutStepTwoPage.CheckoutStepTwoPage;
 
 public class CheckoutStepOnePage extends BasePage {
     private final CheckoutStepOnePageElements elements = new CheckoutStepOnePageElements(driver);
@@ -26,18 +25,18 @@ public class CheckoutStepOnePage extends BasePage {
         return this;
     }
 
-    public CheckoutStepOnePage closeErrorAlert() {
-        click(elements.errorAlertCloseButton, "error alert close button");
+    public CheckoutStepOnePage cleanFirstnameField() {
+        clearField(elements.firstnameField, "firstname field");
         return this;
     }
 
-    public CheckoutStepOnePage goBackToCart() {
-        click(elements.cancelButton, "cancel button");
+    public CheckoutStepOnePage cleanLastnameField() {
+        clearField(elements.lastnameField, "lastname field");
         return this;
     }
 
-    public CheckoutStepOnePage continueCheckout() {
-        click(elements.continueButton, "continue button");
+    public CheckoutStepOnePage cleanZipPostalCodeField() {
+        clearField(elements.zipPostalCodeField, "zip/postal code field");
         return this;
     }
 
@@ -63,27 +62,23 @@ public class CheckoutStepOnePage extends BasePage {
         return getText(elements.errorAlertMessage, "error alert message");
     }
 
-    public CheckoutStepOnePage cleanFirstnameField() {
-        clearField(elements.firstnameField, "firstname field");
+    public CheckoutStepOnePage closeErrorAlert() {
+        click(elements.errorAlertCloseButton, "error alert close button");
         return this;
     }
 
-    public CheckoutStepOnePage cleanLastnameField() {
-        clearField(elements.lastnameField, "lastname field");
+    public CheckoutStepOnePage goBackToCart() {
+        click(elements.cancelButton, "cancel button");
         return this;
     }
 
-    public CheckoutStepOnePage cleanZipPostalCodeField() {
-        clearField(elements.zipPostalCodeField, "zip/postal code field");
+    public CheckoutStepOnePage continueCheckout() {
+        click(elements.continueButton, "continue button");
         return this;
     }
 
     public boolean isErrorAlertVisible() {
         return explicitWaitForVisibility(elements.errorAlert, "error alert");
-    }
-
-    public boolean isErrorAlertTextVisible() {
-        return explicitWaitForVisibility(elements.errorAlertMessage, "error alert text");
     }
 
     public boolean isFirstnameFieldErrorIconVisible() {

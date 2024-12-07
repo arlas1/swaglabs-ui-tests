@@ -4,18 +4,19 @@ import listener.TestListener;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import swaglabs.constants.Credentials;
 import swaglabs.facades.FooterFacade;
+import swaglabs.tests.setup.SetUp;
 
 import static swaglabs.constants.PageUrl.*;
 
 @Listeners(TestListener.class)
 public class FooterTest extends BaseTest {
-    FooterFacade footerFacade;
+    private FooterFacade footerFacade;
 
     @BeforeClass
     public void loginToAccessPageWithFooter() {
-        loginAsStandardUser();
+        SetUp setUp = new SetUp(driver);
+        setUp.loginAsStandardUser();
         this.footerFacade = new FooterFacade(driver);
     }
 

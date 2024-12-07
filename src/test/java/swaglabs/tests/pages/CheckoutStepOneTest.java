@@ -6,6 +6,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import swaglabs.dataproviders.TestDataProvider;
 import swaglabs.facades.CheckoutStepOneFacade;
+import swaglabs.tests.setup.SetUp;
 
 import static swaglabs.constants.ErrorMessage.*;
 import static swaglabs.constants.InputDetails.*;
@@ -14,13 +15,15 @@ import static swaglabs.constants.PageUrl.*;
 @Listeners(TestListener.class)
 public class CheckoutStepOneTest extends BaseTest {
     private CheckoutStepOneFacade checkoutStepOneFacade;
-    private String zipPostalCode = "11211";
+    private final String ZIP_POSTAL_CODE = "11211";
 
     @BeforeClass
     public void loginToAccessInventoryPage_ThenOpenItemPage_ThenOpenCartPage_ThenProceedToCheckoutStepOne() {
-        loginAsStandardUser();
-        addTwoItemsToCartAndOpenCart();
-        proceedToCheckoutStepOne();
+        SetUp setUp = new SetUp(driver);
+        setUp
+             .loginAsStandardUser()
+             .addTwoItemsToCartAndOpenCart()
+             .proceedToCheckoutStepOne();
         this.checkoutStepOneFacade = new CheckoutStepOneFacade(driver);
     }
 
@@ -71,7 +74,7 @@ public class CheckoutStepOneTest extends BaseTest {
     @Test(priority = 7)
     public void givenZipPostalCodeEnteredAndFirstNameAndLastNameEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() {
         checkoutStepOneFacade
-                .enterZipPostalCode(zipPostalCode)
+                .enterZipPostalCode(ZIP_POSTAL_CODE)
                 .continueCheckout()
                 .verifyError(FIRSTNAME_REQUIRED);
     }
@@ -89,7 +92,7 @@ public class CheckoutStepOneTest extends BaseTest {
     public void givenFirstNameAndZipPostalCodeEnteredAndLastNameEmpty_WhenContinueAttempted_ThenLastNameRequiredErrorDisplayed() {
         checkoutStepOneFacade
                 .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
-                .enterZipPostalCode(zipPostalCode)
+                .enterZipPostalCode(ZIP_POSTAL_CODE)
                 .continueCheckout()
                 .verifyError(LASTNAME_REQUIRED);
     }
@@ -98,17 +101,17 @@ public class CheckoutStepOneTest extends BaseTest {
     public void givenLastNameAndZipPostalCodeEnteredAndFirstNameEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() {
         checkoutStepOneFacade
                 .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
-                .enterZipPostalCode(zipPostalCode)
+                .enterZipPostalCode(ZIP_POSTAL_CODE)
                 .continueCheckout()
                 .verifyError(FIRSTNAME_REQUIRED);
     }
 
     @Test(priority = 11)
-    public void givenFirstNameAndLastNameAndZipPostalCodeEntered_WhenContinueAttempted_ThenUserIsRedirected() {
+    public void givenFirstNameAndLastNameAndZipPostalCodeEntered_WhenContinueAttempted_ThenUserIsRedirectedToCheckoutStepTwoPage() {
         checkoutStepOneFacade
                 .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
                 .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
-                .enterZipPostalCode(zipPostalCode)
+                .enterZipPostalCode(ZIP_POSTAL_CODE)
                 .continueCheckout()
                 .verifyRedirectTo(CHECKOUT_STEP_TWO_PAGE);
     }

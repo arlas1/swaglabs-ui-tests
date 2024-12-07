@@ -4,18 +4,20 @@ import listener.TestListener;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import swaglabs.constants.Credentials;
 import swaglabs.facades.InventoryFacade;
+import swaglabs.tests.setup.SetUp;
 
 import static swaglabs.constants.SortType.*;
 
 @Listeners(TestListener.class)
 public class InventoryTest extends BaseTest {
-    InventoryFacade inventoryFacade;
+    private InventoryFacade inventoryFacade;
 
     @BeforeClass
     public void loginToAccessInventoryPage() {
-        loginAsStandardUser();
+        SetUp setUp = new SetUp(driver);
+        setUp.loginAsStandardUser()
+             .openItemPage();
         this.inventoryFacade = new InventoryFacade(driver);
     }
 
@@ -106,7 +108,7 @@ public class InventoryTest extends BaseTest {
                 .verifyCartBadgeDisplays(1);
     }
 
-    @Test(priority = 13) // Run this last
+    @Test(priority = 13)
     public void givenResetAppStateButtonInMenu_WhenTwoItemsAddedToCartAndResetAppStateClicked_ThenCartBadgeDisappears() {
         inventoryFacade
                 .addItemToCart()

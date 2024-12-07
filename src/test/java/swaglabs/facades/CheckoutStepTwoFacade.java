@@ -7,26 +7,16 @@ import ui.pages.checkoutStepTwoPage.CheckoutStepTwoPage;
 
 import java.util.List;
 
-import static swaglabs.constants.PageUrl.CART_PAGE;
 import static swaglabs.utils.CustomAssert.assertEquals;
 
 public class CheckoutStepTwoFacade {
     private CheckoutStepTwoPage checkoutStepTwoPage;
-    private final CustomSoftAssert soft;
+    private CustomSoftAssert soft;
     private int redirectItemId;
 
     public CheckoutStepTwoFacade(WebDriver driver) {
         this.checkoutStepTwoPage = new CheckoutStepTwoPage(driver);
         this.soft = new CustomSoftAssert();
-    }
-
-    public void verifyOrderSummaryIsVisible() {
-        soft.assertTrue(checkoutStepTwoPage.isCheckoutOverviewTextVisible(), "Verifying that checkout overview text is visible");
-        soft.assertTrue(checkoutStepTwoPage.isQtyLabelVisible(), "Verifying that checkout 'qty' label is visible");
-        soft.assertTrue(checkoutStepTwoPage.isDescriptionLabelVisible(), "Verifying that 'description' label is visible");
-        soft.assertTrue(checkoutStepTwoPage.isPaymentInformationVisible(), "Verifying that payment information is visible");
-        soft.assertTrue(checkoutStepTwoPage.isItemsTotalPriceVisible(), "Verifying that items total price is visible");
-        soft.assertAll();
     }
 
     public CheckoutStepTwoFacade finishCheckout() {
@@ -43,8 +33,17 @@ public class CheckoutStepTwoFacade {
         List<WebElement> cartItems = checkoutStepTwoPage.getCartItems();
         WebElement item = cartItems.get(position);
         this.redirectItemId = checkoutStepTwoPage.getItemId(item);
-        checkoutStepTwoPage.openItem(item);
+        checkoutStepTwoPage.openItemByTitle(item);
         return this;
+    }
+
+    public void verifyOrderSummaryIsVisible() {
+        soft.assertTrue(checkoutStepTwoPage.isCheckoutOverviewTextVisible(), "Verifying that checkout overview text is visible");
+        soft.assertTrue(checkoutStepTwoPage.isQtyLabelVisible(), "Verifying that checkout 'qty' label is visible");
+        soft.assertTrue(checkoutStepTwoPage.isDescriptionLabelVisible(), "Verifying that 'description' label is visible");
+        soft.assertTrue(checkoutStepTwoPage.isPaymentInformationVisible(), "Verifying that payment information is visible");
+        soft.assertTrue(checkoutStepTwoPage.isItemsTotalPriceVisible(), "Verifying that items total price is visible");
+        soft.assertAll();
     }
 
     public void verifyRedirectTo(String redirectedToUrl) {

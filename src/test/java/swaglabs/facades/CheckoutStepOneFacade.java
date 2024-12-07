@@ -10,8 +10,8 @@ import static swaglabs.utils.CustomAssert.assertEquals;
 import static swaglabs.utils.RandomStringGenerator.generateRandomInput;
 
 public class CheckoutStepOneFacade{
-    private final CheckoutStepOnePage checkoutStepOnePage;
-    private final CustomSoftAssert soft;
+    private CheckoutStepOnePage checkoutStepOnePage;
+    private CustomSoftAssert soft;
 
     private String expectedFirstName;
     private String actualFirstName;
@@ -47,6 +47,15 @@ public class CheckoutStepOneFacade{
 
     public CheckoutStepOneFacade continueCheckout() {
         checkoutStepOnePage.continueCheckout();
+        String currentUrl = checkoutStepOnePage.getCurrentUrl();
+
+//        if (currentUrl.equals("https://www.saucedemo.com/checkout-step-two.html")){
+//            checkoutStepOnePage.goToPreviousPage();
+//            checkoutStepOnePage.continueCheckout();
+//            return this;
+//        } else {
+//            return this;
+//        }
         return this;
     }
 

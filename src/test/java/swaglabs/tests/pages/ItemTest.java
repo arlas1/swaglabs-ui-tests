@@ -4,23 +4,20 @@ import listener.TestListener;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import swaglabs.constants.Credentials;
-import swaglabs.facades.InventoryFacade;
 import swaglabs.facades.ItemFacade;
+import swaglabs.tests.setup.SetUp;
 
 import static swaglabs.constants.PageUrl.*;
 
 @Listeners(TestListener.class)
 public class ItemTest extends BaseTest {
-    InventoryFacade inventoryFacade;
-    ItemFacade itemFacade;
+    private ItemFacade itemFacade;
 
     @BeforeClass
     public void loginToAccessInventoryPageAndClickOnItem() {
-        loginAsStandardUser();
-        this.inventoryFacade = new InventoryFacade(driver);
-        inventoryFacade
-                .clickOnItemTitle(0);
+        SetUp setUp = new SetUp(driver);
+        setUp.loginAsStandardUser()
+             .openItemPage();
         this.itemFacade = new ItemFacade(driver);
     }
 

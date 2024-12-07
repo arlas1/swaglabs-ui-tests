@@ -5,17 +5,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import swaglabs.facades.HeaderFacade;
+import swaglabs.tests.setup.SetUp;
 
-import static swaglabs.constants.Credentials.Usernames;
 import static swaglabs.constants.PageUrl.*;
 
 @Listeners(TestListener.class)
 public class HeaderTest extends BaseTest  {
-    HeaderFacade headerFacade;
+    private HeaderFacade headerFacade;
 
     @BeforeClass
     public void loginToAccessPageWithHeader() {
-       loginAsStandardUser();
+        SetUp setUp = new SetUp(driver);
+        setUp.loginAsStandardUser();
         this.headerFacade = new HeaderFacade(driver);
     }
 

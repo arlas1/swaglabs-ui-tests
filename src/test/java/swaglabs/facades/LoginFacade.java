@@ -1,8 +1,6 @@
 package swaglabs.facades;
 
 import config.*;
-import swaglabs.constants.ErrorMessage;
-import swaglabs.constants.PageUrl;
 import swaglabs.constants.Credentials;
 import org.openqa.selenium.WebDriver;
 import swaglabs.utils.CustomSoftAssert;
@@ -14,8 +12,8 @@ import static swaglabs.utils.CustomAssert.assertEquals;
 import static swaglabs.utils.RandomStringGenerator.generateRandomInput;
 
 public class LoginFacade {
-    private final LoginPage loginPage;
-    private final CustomSoftAssert soft;
+    private LoginPage loginPage;
+    private CustomSoftAssert soft;
 
     private String expectedUsername;
     private String actualUsername;
@@ -54,6 +52,11 @@ public class LoginFacade {
         return this;
     }
 
+    public LoginFacade login() {
+        loginPage.login();
+        return this;
+    }
+
     public void verifyUsernameFieldStoresInput() {
         assertEquals(this.expectedUsername, this.actualUsername,
                 "Verifying that username field stores the input."
@@ -78,11 +81,6 @@ public class LoginFacade {
         assertTrue(loginPage.areCredentialsVisible(),
                 "Verifying that default credentials are visible."
         );
-    }
-
-    public LoginFacade login() {
-        loginPage.login();
-        return this;
     }
 
     public void verifyError(String errorType) {

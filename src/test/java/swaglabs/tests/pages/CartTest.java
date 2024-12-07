@@ -5,17 +5,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import swaglabs.facades.CartFacade;
+import swaglabs.tests.setup.SetUp;
 
 import static swaglabs.constants.PageUrl.*;
 
 @Listeners(TestListener.class)
 public class CartTest extends BaseTest {
-    CartFacade cartFacade;
+    private CartFacade cartFacade;
 
     @BeforeClass
     public void loginToAccessInventoryPage_ThenAddTwoItemsToCart_ThenOpenCartPage() {
-        loginAsStandardUser();
-        addTwoItemsToCartAndOpenCart();
+        SetUp setUp = new SetUp(driver);
+        setUp
+             .loginAsStandardUser()
+             .addTwoItemsToCartAndOpenCart();
         this.cartFacade = new CartFacade(driver);
     }
 

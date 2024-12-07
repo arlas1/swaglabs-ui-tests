@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import swaglabs.facades.CheckoutStepTwoFacade;
+import swaglabs.tests.setup.SetUp;
 
 import static swaglabs.constants.PageUrl.*;
 
@@ -14,10 +15,13 @@ public class CheckoutStepTwoTest extends BaseTest {
 
     @BeforeClass
     public void loginToAccessInventoryPage_ThenOpenItemPage_ThenOpenCartPage_ThenProceedToCheckoutStepOne_ThenProceedToCheckoutStepTwo() {
-        loginAsStandardUser();
-        addTwoItemsToCartAndOpenCart();
-        proceedToCheckoutStepOne();
-        proceedToCheckoutStepTwo();
+        SetUp setUp = new SetUp(driver);
+        setUp.loginAsStandardUser()
+                .openItemPage()
+                .loginAsStandardUser()
+                .addTwoItemsToCartAndOpenCart()
+                .proceedToCheckoutStepOne()
+                .proceedToCheckoutStepTwo();
         this.checkoutStepTwoFacade = new CheckoutStepTwoFacade(driver);
     }
 

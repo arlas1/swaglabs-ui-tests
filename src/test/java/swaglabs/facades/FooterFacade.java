@@ -1,13 +1,12 @@
 package swaglabs.facades;
 
 import org.openqa.selenium.WebDriver;
-import swaglabs.constants.PageUrl;
 import ui.components.footer.Footer;
 
 import static swaglabs.utils.CustomAssert.*;
 
 public class FooterFacade {
-    private final Footer footer;
+    private Footer footer;
 
     public FooterFacade(WebDriver driver) {
         this.footer = new Footer(driver);

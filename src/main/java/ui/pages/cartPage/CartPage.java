@@ -1,13 +1,11 @@
 package ui.pages.cartPage;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ui.pages.BasePage;
 import ui.pages.checkoutStepOnePage.CheckoutStepOnePage;
 import ui.pages.inventoryPage.InventoryPage;
-import ui.pages.itemPage.ItemPage;
 
 import java.util.List;
 
@@ -38,42 +36,16 @@ public class CartPage extends BasePage {
         return this;
     }
 
-    public ItemPage openItem(WebElement item) {
-        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
-        click(itemTitle, "item title");
-        return new ItemPage(driver);
-    }
-
-    public int getItemId(WebElement inventoryItem) {
-        try {
-            WebElement itemLink = findElement(inventoryItem, By.cssSelector("a[id*='item_']"), "item link");
-            String idValue = itemLink.getAttribute("id");
-            String itemId = idValue.replaceAll("\\D+", "");
-            return Integer.parseInt(itemId);
-        } catch (NoSuchElementException e) {
-            throw new RuntimeException("Item ID not found for the given inventory item.", e);
-        }
-    }
-
-    public WebElement getItemTitle(WebElement item) {
-        return findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
-    }
-
-    public boolean isItemTitleColorChangedOnHover(WebElement item) {
-        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
-        return isTextColorChangedOnHover(itemTitle, "item title");
-    }
-
     public boolean isYourCartTitleVisible() {
-        return explicitWaitForVisibility(elements.yourCartText, "Your Cart title");
+        return explicitWaitForVisibility(elements.yourCartText, "'Your Cart' title");
     }
 
     public boolean isQtyLabelVisible() {
-        return explicitWaitForVisibility(elements.qtyText, "Qty label");
+        return explicitWaitForVisibility(elements.qtyText, "'Qty' label");
     }
 
     public boolean isDescriptionLabelVisible() {
-        return explicitWaitForVisibility(elements.descriptionText, "Description label");
+        return explicitWaitForVisibility(elements.descriptionText, "'Description' label");
     }
 
     public boolean isItemTitleVisible(WebElement item) {
@@ -89,5 +61,10 @@ public class CartPage extends BasePage {
     public boolean isItemPriceVisible(WebElement item) {
         WebElement itemPrice = findElement(item, By.cssSelector("div[data-test='inventory-item-price']"), "item price");
         return itemPrice != null;
+    }
+
+    public boolean isItemTitleColorChangedOnHover(WebElement item) {
+        WebElement itemTitle = findElement(item, By.cssSelector("div[data-test='inventory-item-name']"), "item title");
+        return isTextColorChangedOnHover(itemTitle, "item title");
     }
 }

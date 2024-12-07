@@ -16,16 +16,16 @@ public class CheckoutCompletePage extends BasePage {
         return new InventoryPage(driver);
     }
 
-    public boolean isCheckoutCompleteTextVisible() {
-        return explicitWaitForVisibility(elements.checkoutCompleteText, "checkout complete text");
+    public boolean isCheckoutCompleteTitleVisible() {
+        return explicitWaitForVisibility(elements.checkoutCompleteTitle, "'Checkout: Complete!' title");
     }
 
     public boolean isConfirmationIconVisible() {
         return explicitWaitForVisibility(elements.confirmationIcon, "confirmation icon");
     }
 
-    public boolean isConfirmationHeaderVisible() {
-        return explicitWaitForVisibility(elements.confirmationHeader, "confirmation header");
+    public boolean isConfirmationHeaderTextVisible() {
+        return explicitWaitForVisibility(elements.confirmationHeaderText, "confirmation header text");
     }
 
     public boolean isConfirmationDescriptionVisible() {

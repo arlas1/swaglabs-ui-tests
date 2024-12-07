@@ -7,16 +7,16 @@ import org.openqa.selenium.support.PageFactory;
 
 public class CheckoutCompletePageElements {
 
-    @FindBy(id = "title")
-    protected WebElement checkoutCompleteText;
+    @FindBy(className = "title")
+    protected WebElement checkoutCompleteTitle;
 
-    @FindBy(id = "pony_express")
+    @FindBy(className = "pony_express")
     protected WebElement confirmationIcon;
 
-    @FindBy(id = "complete-header")
-    protected WebElement confirmationHeader;
+    @FindBy(className = "complete-header")
+    protected WebElement confirmationHeaderText;
 
-    @FindBy(id = "complete-text")
+    @FindBy(className = "complete-text")
     protected WebElement confirmationDescription;
 
     @FindBy(id = "back-to-products")

@@ -1,7 +1,6 @@
 package swaglabs.facades;
 
 import org.openqa.selenium.WebDriver;
-import swaglabs.constants.PageUrl;
 import swaglabs.utils.CustomSoftAssert;
 import ui.components.header.Header;
 
@@ -9,31 +8,17 @@ import static swaglabs.constants.PageUrl.*;
 import static swaglabs.utils.CustomAssert.*;
 
 public class HeaderFacade {
-    private final Header header;
-    private final CustomSoftAssert soft;
+    private Header header;
+    private CustomSoftAssert soft;
 
     public HeaderFacade(WebDriver driver) {
         this.header = new Header(driver);
         this.soft = new CustomSoftAssert();
     }
 
-    public HeaderFacade verifyWebsiteTitleIsVisible() {
-        assertTrue(header.isWebsiteTitleVisible(),
-                "Verifying that website title is visible.");
-        return this;
-    }
-
     public HeaderFacade openCart() {
         header.openCart();
         return this;
-    }
-
-    public void verifyRedirectTo(String redirectUrl) {
-        String currentUrl = header.getCurrentUrl();
-        assertEquals(currentUrl, redirectUrl,
-                "Verifying that user is redirected to the" + redirectUrl + " ."
-        );
-        header.openUrl(INVENTORY_PAGE);
     }
 
     public HeaderFacade openMenu() {
@@ -58,6 +43,12 @@ public class HeaderFacade {
 
     public HeaderFacade closeMenu() {
         header.closeMenu();
+        return this;
+    }
+
+    public HeaderFacade verifyWebsiteTitleIsVisible() {
+        assertTrue(header.isWebsiteTitleVisible(),
+                "Verifying that website title is visible.");
         return this;
     }
 
@@ -90,5 +81,13 @@ public class HeaderFacade {
         soft.assertTrue(header.isResetAppStateTextColorChangedOnHover(), "Verifying that 'Reset App State' text color changes on hover.");
         soft.assertAll();
         return this;
+    }
+
+    public void verifyRedirectTo(String redirectUrl) {
+        String currentUrl = header.getCurrentUrl();
+        assertEquals(currentUrl, redirectUrl,
+                "Verifying that user is redirected to the" + redirectUrl + " ."
+        );
+        header.openUrl(INVENTORY_PAGE);
     }
 }

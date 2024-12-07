@@ -58,14 +58,13 @@ public class PageActions {
     public boolean goToPreviousPage() {
         try {
             driver.navigate().back();
-            logger.info("Navigated to the previous page.");
+//            logger.info("Navigated to the previous page.");
             return true;
         } catch (Exception e) {
             logger.error("Failed to navigate to the previous page: {}", e.getMessage());
             return false;
         }
     }
-
 
     public void switchToNewTab(String tabName) {
         try {
@@ -93,16 +92,24 @@ public class PageActions {
         }
     }
 
-    public boolean explicitWaitForVisibility(WebElement element, String elementName) {
+    public void click(WebElement element, String elementName) {
         try {
-            int timeOut = 3;
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
-            wait.until(ExpectedConditions.visibilityOf(element));
-//            logger.info("'{}' is visible after explicit wait.", elementName);
-            return true;
+            this.explicitWaitForVisibility(element, elementName);
+            actions.moveToElement(element).click().perform();
+            logger.info("Clicked on '{}'.", elementName);
         } catch (Exception e) {
-            logger.error("Failed to wait for visibility of '{}': {}", elementName, e.getMessage());
-            return false;
+            logger.error("Failed to click on '{}': {}", elementName, e.getMessage());
+        }
+    }
+
+    public void sendKeys(WebElement element, String text, String elementName) {
+        try {
+            this.explicitWaitForVisibility(element, elementName);
+            element.clear();
+            element.sendKeys(text);
+            logger.info("Entered '{}' into '{}'.", text, elementName);
+        } catch (Exception e) {
+            logger.error("Failed to enter text into '{}': {}", elementName, e.getMessage());
         }
     }
 
@@ -116,13 +123,13 @@ public class PageActions {
         }
     }
 
-    public void click(WebElement element, String elementName) {
+    public void scrollToElement(WebElement element, String elementName) {
         try {
-            this.explicitWaitForVisibility(element, elementName);
-            actions.moveToElement(element).click().perform();
-            logger.info("Clicked on '{}'.", elementName);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollIntoView(true);", element);
+            logger.info("Scrolled to element '{}'.", elementName);
         } catch (Exception e) {
-            logger.error("Failed to click on '{}': {}", elementName, e.getMessage());
+            logger.error("Failed to scroll to element '{}': {}", elementName, e.getMessage());
         }
     }
 
@@ -134,6 +141,19 @@ public class PageActions {
             logger.info("Selected '{}'.", dropdownName);
         } catch (Exception e) {
             logger.error("Failed to select value '{}' in dropdown '{}': {}", value, dropdownName, e.getMessage());
+        }
+    }
+
+    public boolean explicitWaitForVisibility(WebElement element, String elementName) {
+        try {
+            int timeOut = 3;
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+            wait.until(ExpectedConditions.visibilityOf(element));
+//            logger.info("'{}' is visible after explicit wait.", elementName);
+            return true;
+        } catch (Exception e) {
+            logger.error("Failed to wait for visibility of '{}': {}", elementName, e.getMessage());
+            return false;
         }
     }
 
@@ -153,31 +173,6 @@ public class PageActions {
         }
     }
 
-    public void sendKeys(WebElement element, String text, String elementName) {
-        try {
-            this.explicitWaitForVisibility(element, elementName);
-            element.clear();
-            element.sendKeys(text);
-            logger.info("Entered '{}' into '{}'.", text, elementName);
-        } catch (Exception e) {
-            logger.error("Failed to enter text into '{}': {}", elementName, e.getMessage());
-        }
-    }
-
-    public WebElement findElement(WebElement parentElement, By locator, String elementName) {
-        try {
-            WebElement element = parentElement.findElement(locator);
-            return element;
-        } catch (NoSuchElementException e) {
-            logger.warn("Element '{}' not found. Returning null.", elementName);
-            return null;
-        } catch (Exception e) {
-            logger.error("Failed to locate element '{}': {}", elementName, e.getMessage());
-            return null;
-        }
-    }
-
-
     public String getText(WebElement element, String elementName) {
         try {
             this.explicitWaitForVisibility(element, elementName);
@@ -193,13 +188,23 @@ public class PageActions {
         }
     }
 
+    public String getInputValue(WebElement element, String elementName) {
+        try {
+            this.explicitWaitForVisibility(element, elementName);
+            String value = element.getAttribute("value");
+//            logger.info("Retrieved input value '{}' from '{}'.", value, elementName);
+            return value != null ? value : "";
+        } catch (Exception e) {
+            logger.error("Failed to retrieve input value from '{}': {}", elementName, e.getMessage());
+            return "";
+        }
+    }
 
     public boolean isTextColorChangedOnHover(WebElement element, String elementName) {
         try {
             this.explicitWaitForVisibility(element, elementName);
             String initialColor = element.getCssValue("color");
             actions.moveToElement(element).perform();
-            logger.info("Hovered over '{}'.", elementName);
             String hoverColor = element.getCssValue("color");
             boolean isColorChanged = !initialColor.equals(hoverColor);
             if (isColorChanged) {
@@ -215,25 +220,15 @@ public class PageActions {
         }
     }
 
-    public String getInputValue(WebElement element, String elementName) {
+    public WebElement findElement(WebElement parentElement, By locator, String elementName) {
         try {
-            this.explicitWaitForVisibility(element, elementName);
-            String value = element.getAttribute("value");
-//            logger.info("Retrieved input value '{}' from '{}'.", value, elementName);
-            return value != null ? value : "";
+            return parentElement.findElement(locator);
+        } catch (NoSuchElementException e) {
+            logger.warn("Element '{}' not found. Returning null.", elementName);
+            return null;
         } catch (Exception e) {
-            logger.error("Failed to retrieve input value from '{}': {}", elementName, e.getMessage());
-            return "";
-        }
-    }
-
-    public void scrollToElement(WebElement element, String elementName) {
-        try {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].scrollIntoView(true);", element);
-            logger.info("Scrolled to element '{}'.", elementName);
-        } catch (Exception e) {
-            logger.error("Failed to scroll to element '{}': {}", elementName, e.getMessage());
+            logger.error("Failed to locate element '{}': {}", elementName, e.getMessage());
+            return null;
         }
     }
 }
