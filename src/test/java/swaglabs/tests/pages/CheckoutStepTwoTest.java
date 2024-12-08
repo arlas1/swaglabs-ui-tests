@@ -17,8 +17,6 @@ public class CheckoutStepTwoTest extends BaseTest {
     public void loginToAccessInventoryPage_ThenOpenItemPage_ThenOpenCartPage_ThenProceedToCheckoutStepOne_ThenProceedToCheckoutStepTwo() {
         SetUp setUp = new SetUp(driver);
         setUp.loginAsStandardUser()
-                .openItemPage()
-                .loginAsStandardUser()
                 .addTwoItemsToCartAndOpenCart()
                 .proceedToCheckoutStepOne()
                 .proceedToCheckoutStepTwo();

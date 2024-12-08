@@ -8,10 +8,17 @@ import org.testng.ITestResult;
 
 public class TestListener implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(TestListener.class);
+    private String currentTestClass = "";
 
     @Override
     public void onTestStart(ITestResult result) {
-        logger.info("\n\n==================== STARTING TEST: {} ====================\n", result.getMethod().getMethodName());
+        String testClassName = result.getTestClass().getRealClass().getSimpleName();
+        if (!currentTestClass.equals(testClassName)) {
+            currentTestClass = testClassName;
+            logger.info("\n\n==================== STARTING TEST CLASS: {} ====================\n", currentTestClass);
+        }
+
+        logger.info("\n==================== STARTING TEST: {} ====================", result.getMethod().getMethodName());
     }
 
     @Override
@@ -27,8 +34,6 @@ public class TestListener implements ITestListener {
 
         logger.error("\n==================== TEST FAILED: {} ====================\n", testName);
         logger.error("Reason: {}\n", errorMessage);
-
-        result.setThrowable(null);
     }
 
     @Override

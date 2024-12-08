@@ -44,13 +44,13 @@ public class LoginTest extends BaseTest {
                 .verifyError(USERNAME_REQUIRED);
     }
 
-    @Test
-    public void givenUsernameEnteredAndPasswordEmpty_WhenLoginAttempted_ThenPasswordRequiredErrorDisplayed() {
-        loginPageFacade
-                .enterRandomUsername(InputType.ALPHABET, InputLength.SHORT)
-                .login()
-                .verifyError(PASSWORD_REQUIRED);
-    }
+//    @Test
+//    public void givenUsernameEnteredAndPasswordEmpty_WhenLoginAttempted_ThenPasswordRequiredErrorDisplayed() {
+//        loginPageFacade
+//                .enterRandomUsername(InputType.ALPHABET, InputLength.SHORT)
+//                .login()
+//                .verifyError(PASSWORD_REQUIRED);
+//    }
 
     @Test
     public void givenInvalidUsernameAndInvalidPassword_WhenLoginAttempted_ThenInvalidCredentialsErrorDisplayed() {

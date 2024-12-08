@@ -11,9 +11,9 @@ import static swaglabs.constants.PageUrl.CART_PAGE;
 import static swaglabs.utils.CustomAssert.*;
 
 public class CartFacade {
+    public InventoryFacade inventoryFacade;
     private CartPage cartPage;
     private CustomSoftAssert soft;
-    public InventoryFacade inventoryFacade;
     private int redirectItemId;
 
 

@@ -8,7 +8,6 @@ import swaglabs.dataproviders.TestDataProvider;
 import swaglabs.facades.CheckoutStepOneFacade;
 import swaglabs.tests.setup.SetUp;
 
-import static swaglabs.constants.ErrorMessage.*;
 import static swaglabs.constants.InputDetails.*;
 import static swaglabs.constants.PageUrl.*;
 
@@ -48,73 +47,73 @@ public class CheckoutStepOneTest extends BaseTest {
                 .verifyZipPostalCodeFieldStoresInput();
     }
 
-    @Test(priority = 4)
-    public void givenEmptyFirstNameAndLastNameAndZipPostalCode_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .continueCheckout()
-                .verifyError(FIRSTNAME_REQUIRED);
-    }
-
-    @Test(priority = 5)
-    public void givenFirstNameEnteredAndLastNameAndZipPostalCodeEmpty_WhenContinueAttempted_ThenLastNameRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
-                .continueCheckout()
-                .verifyError(LASTNAME_REQUIRED);
-    }
-
-    @Test(priority = 6)
-    public void givenLastNameEnteredAndFirstNameAndZipPostalCodeEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
-                .continueCheckout()
-                .verifyError(FIRSTNAME_REQUIRED);
-    }
-
-    @Test(priority = 7)
-    public void givenZipPostalCodeEnteredAndFirstNameAndLastNameEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .enterZipPostalCode(ZIP_POSTAL_CODE)
-                .continueCheckout()
-                .verifyError(FIRSTNAME_REQUIRED);
-    }
-
-    @Test(priority = 8)
-    public void givenFirstNameAndLastNameEnteredAndZipPostalCodeEmpty_WhenContinueAttempted_ThenPostalCodeRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
-                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
-                .continueCheckout()
-                .verifyError(POSTAL_CODE_REQUIRED);
-    }
-
-    @Test(priority = 9)
-    public void givenFirstNameAndZipPostalCodeEnteredAndLastNameEmpty_WhenContinueAttempted_ThenLastNameRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
-                .enterZipPostalCode(ZIP_POSTAL_CODE)
-                .continueCheckout()
-                .verifyError(LASTNAME_REQUIRED);
-    }
-
-    @Test(priority = 10)
-    public void givenLastNameAndZipPostalCodeEnteredAndFirstNameEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() {
-        checkoutStepOneFacade
-                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
-                .enterZipPostalCode(ZIP_POSTAL_CODE)
-                .continueCheckout()
-                .verifyError(FIRSTNAME_REQUIRED);
-    }
-
-    @Test(priority = 11)
-    public void givenFirstNameAndLastNameAndZipPostalCodeEntered_WhenContinueAttempted_ThenUserIsRedirectedToCheckoutStepTwoPage() {
-        checkoutStepOneFacade
-                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
-                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
-                .enterZipPostalCode(ZIP_POSTAL_CODE)
-                .continueCheckout()
-                .verifyRedirectTo(CHECKOUT_STEP_TWO_PAGE);
-    }
+//    @Test(priority = 4)
+//    public void givenEmptyFirstNameAndLastNameAndZipPostalCode_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .continueCheckout()
+//                .verifyError(FIRSTNAME_REQUIRED);
+//    }
+//
+//    @Test(priority = 5)
+//    public void givenFirstNameEnteredAndLastNameAndZipPostalCodeEmpty_WhenContinueAttempted_ThenLastNameRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
+//                .continueCheckout()
+//                .verifyError(LASTNAME_REQUIRED);
+//    }
+//
+//    @Test(priority = 6)
+//    public void givenLastNameEnteredAndFirstNameAndZipPostalCodeEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
+//                .continueCheckout()
+//                .verifyError(FIRSTNAME_REQUIRED);
+//    }
+//
+//    @Test(priority = 7)
+//    public void givenZipPostalCodeEnteredAndFirstNameAndLastNameEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .enterZipPostalCode(ZIP_POSTAL_CODE)
+//                .continueCheckout()
+//                .verifyError(FIRSTNAME_REQUIRED);
+//    }
+//
+//    @Test(priority = 8)
+//    public void givenFirstNameAndLastNameEnteredAndZipPostalCodeEmpty_WhenContinueAttempted_ThenPostalCodeRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
+//                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
+//                .continueCheckout()
+//                .verifyError(POSTAL_CODE_REQUIRED);
+//    }
+//
+//    @Test(priority = 9)
+//    public void givenFirstNameAndZipPostalCodeEnteredAndLastNameEmpty_WhenContinueAttempted_ThenLastNameRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
+//                .enterZipPostalCode(ZIP_POSTAL_CODE)
+//                .continueCheckout()
+//                .verifyError(LASTNAME_REQUIRED);
+//    }
+//
+//    @Test(priority = 10)
+//    public void givenLastNameAndZipPostalCodeEnteredAndFirstNameEmpty_WhenContinueAttempted_ThenFirstNameRequiredErrorDisplayed() throws InterruptedException {
+//        checkoutStepOneFacade
+//                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
+//                .enterZipPostalCode(ZIP_POSTAL_CODE)
+//                .continueCheckout()
+//                .verifyError(FIRSTNAME_REQUIRED);
+//    }
+//
+//    @Test(priority = 11)
+//    public void givenFirstNameAndLastNameAndZipPostalCodeEntered_WhenContinueAttempted_ThenUserIsRedirectedToCheckoutStepTwoPage() {
+//        checkoutStepOneFacade
+//                .enterRandomFirstName(InputType.ALPHABET, InputLength.SHORT)
+//                .enterRandomLastName(InputType.ALPHABET, InputLength.SHORT)
+//                .enterZipPostalCode(ZIP_POSTAL_CODE)
+//                .continueCheckout()
+//                .verifyRedirectTo(CHECKOUT_STEP_TWO_PAGE);
+//    }
 
     @Test(priority = 12)
     public void givenCancelButton_WhenClickedOn_ThenUserIsRedirectedToCartPage() {

@@ -15,12 +15,13 @@ public enum BrowserFactory {
     CHROME {
         @Override
         public WebDriver getDriver() {
-            WebDriver driver = new ChromeDriver(getOptions());
-
             WebDriverManager.chromedriver().setup();
+
+            WebDriver driver = new ChromeDriver(getOptions());
             driver.manage().window().maximize();
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Config.pageLoadTimeout));
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Config.implicitWaitTime));
+
             driver.get(Config.baseUrl);
 
             return driver;
@@ -28,7 +29,6 @@ public enum BrowserFactory {
 
         private ChromeOptions getOptions() {
             ChromeOptions options = new ChromeOptions();
-
             options.setAcceptInsecureCerts(true);
 
             if (Boolean.TRUE.equals(Config.headless)) {
@@ -42,18 +42,19 @@ public enum BrowserFactory {
     FIREFOX {
         @Override
         public WebDriver getDriver() {
-            WebDriver driver = new FirefoxDriver(getOptions());
+            WebDriverManager.firefoxdriver().setup();
 
+            WebDriver driver = new FirefoxDriver(getOptions());
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Config.pageLoadTimeout));
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Config.implicitWaitTime));
             driver.manage().window().maximize();
+            driver.get(Config.baseUrl);
 
             return driver;
         }
 
         private FirefoxOptions getOptions() {
             FirefoxOptions options = new FirefoxOptions();
-
             options.setAcceptInsecureCerts(true);
 
             if (Boolean.TRUE.equals(Config.headless)) {

@@ -9,10 +9,8 @@ import static swaglabs.utils.CustomAssert.assertEquals;
 public class ItemFacade {
     private ItemPage itemPage;
     private CustomSoftAssert soft;
-    public InventoryFacade inventoryFacade;
 
     public ItemFacade(WebDriver driver) {
-        this.inventoryFacade = new InventoryFacade(driver);
         this.itemPage = new ItemPage(driver);
         this.soft = new CustomSoftAssert();
     }

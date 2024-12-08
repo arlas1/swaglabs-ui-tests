@@ -16,8 +16,7 @@ public class InventoryTest extends BaseTest {
     @BeforeClass
     public void loginToAccessInventoryPage() {
         SetUp setUp = new SetUp(driver);
-        setUp.loginAsStandardUser()
-             .openItemPage();
+        setUp.loginAsStandardUser();
         this.inventoryFacade = new InventoryFacade(driver);
     }
 

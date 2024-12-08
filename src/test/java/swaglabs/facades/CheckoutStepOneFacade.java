@@ -12,7 +12,6 @@ import static swaglabs.utils.RandomStringGenerator.generateRandomInput;
 public class CheckoutStepOneFacade{
     private CheckoutStepOnePage checkoutStepOnePage;
     private CustomSoftAssert soft;
-
     private String expectedFirstName;
     private String actualFirstName;
     private String expectedLastName;
@@ -47,15 +46,21 @@ public class CheckoutStepOneFacade{
 
     public CheckoutStepOneFacade continueCheckout() {
         checkoutStepOnePage.continueCheckout();
-        String currentUrl = checkoutStepOnePage.getCurrentUrl();
+        return this;
+    }
 
-//        if (currentUrl.equals("https://www.saucedemo.com/checkout-step-two.html")){
-//            checkoutStepOnePage.goToPreviousPage();
-//            checkoutStepOnePage.continueCheckout();
-//            return this;
-//        } else {
-//            return this;
-//        }
+    public CheckoutStepOneFacade cleanFirstnameField(){
+        checkoutStepOnePage.cleanFirstnameField();
+        return this;
+    }
+
+    public CheckoutStepOneFacade cleanLastnameField(){
+        checkoutStepOnePage.cleanLastnameField();
+        return this;
+    }
+
+    public CheckoutStepOneFacade cleanZipPostalCodeField(){
+        checkoutStepOnePage.cleanZipPostalCodeField();
         return this;
     }
 
@@ -67,6 +72,10 @@ public class CheckoutStepOneFacade{
     public void verifyError(String errorType) {
         this.expectedErrorMessage = checkoutStepOnePage.getErrorMessage();
         this.actualErrorMessage = errorType;
+
+        checkoutStepOnePage.cleanFirstnameField();
+        checkoutStepOnePage.cleanLastnameField();
+        checkoutStepOnePage.cleanZipPostalCodeField();
 
         soft.assertTrue(checkoutStepOnePage.isFirstnameFieldErrorIconVisible(),
                 "Verifying that firstname error icon is visible."
@@ -81,12 +90,12 @@ public class CheckoutStepOneFacade{
                 "Verifying that error alert is visible."
         );
         soft.assertAll();
-
         assertEquals(this.expectedErrorMessage, this.actualErrorMessage,
                 "Verifying that displayed error message matches the expected error message."
         );
 
         checkoutStepOnePage.closeErrorAlert();
+
         this.expectedErrorMessage = null;
         this.actualErrorMessage = null;
     }

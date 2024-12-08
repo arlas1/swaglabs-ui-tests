@@ -177,7 +177,7 @@ public class PageActions {
         try {
             this.explicitWaitForVisibility(element, elementName);
             String text = element.getText().trim();
-            logger.info("Retrieved text '{}' from '{}'.", text, elementName);
+//            logger.info("Retrieved text '{}' from '{}'.", text, elementName);
             return text;
         } catch (NoSuchElementException e) {
             logger.warn("Element '{}' not found. Returning empty string.", elementName);
