@@ -1,7 +1,5 @@
 # SwagLabs UI Tests
 
-**Artur Lasimer arlasi@taltech.ee**
-
 Fluent UI tests using Java, TestNG, Selenium, Maven, well-structured modular design with reusable components, detailed logging and clean exceptions.
 
 ---
